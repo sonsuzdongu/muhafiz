@@ -38,8 +38,8 @@ class Muhafiz
 
         foreach ($activeRunners as $activeRunner) {
             $activeRunner = trim($activeRunner);
-            $className = "Adapters_" . ucfirst($activeRunner) . "_" .ucfirst($activeRunner);
-            if (class_exists($className) && is_subclass_of($className, "Adapters_Abstract")) {
+            $className = "Runners_" . ucfirst($activeRunner) . "_" .ucfirst($activeRunner);
+            if (class_exists($className) && is_subclass_of($className, "Runners_Abstract")) {
                 $runner = new $className();
                 echo "running $activeRunner \n";
                 $runner->apply($stagedFiles['output']);

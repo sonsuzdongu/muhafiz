@@ -17,13 +17,13 @@
 /**
  * Php CodeSniffer adapter to check files using phpcs
  */
-class Adapters_Phpcs_Phpcs extends Adapters_Abstract
+class Runners_Phpcs_Phpcs extends Runners_Abstract
 {
     function apply(array $files)
     {
         //get required config params
-        $standard = Utils_Git::getConfig("muhafiz.adapters.phpcs.standard", "PEAR");
-        $report = Utils_Git::getConfig("muhafiz.adapters.phpcs.report", "emacs");
+        $standard = Utils_Git::getConfig("muhafiz.runners.phpcs.standard", "PEAR");
+        $report = Utils_Git::getConfig("muhafiz.runners.phpcs.report", "emacs");
 
         foreach ($files as $file) {
             $out = Utils_System::runCommand("phpcs ${file} --standard=${standard} --report=emacs");

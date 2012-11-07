@@ -14,9 +14,9 @@
 // limitations under the License.
 
 /**
- * All adapters should have 'apply()' method for given files array
+ * All runners should have 'apply()' method for given files array
  */
-abstract class Adapters_Abstract
+abstract class Runners_Abstract
 {
     abstract function apply (array $files);
 }

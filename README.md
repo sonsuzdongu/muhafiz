@@ -72,5 +72,5 @@ After this, **'all your comits are belongs to us'**. All your commits will be ch
 
 * **phpcs** ([PhpCodeSniffer](http://pear.php.net/package/PHP_CodeSniffer/redirected))
     * config parameters : 
-        * 'muhafiz.adapters.phpcs.standard' : set coding standard (see [reference doc](http://pear.php.net/manual/en/package.php.php-codesniffer.config-options.php)) | defaults to "PEAR"
-        * 'muhafiz.adapters.phpcs.report' : set reporting type (see [reference doc](http://pear.php.net/manual/en/package.php.php-codesniffer.config-options.php)) | defaults to "emacs"
+        * 'muhafiz.runners.phpcs.standard' : set coding standard (see [reference doc](http://pear.php.net/manual/en/package.php.php-codesniffer.config-options.php)) | defaults to "PEAR"
+        * 'muhafiz.runners.phpcs.report' : set reporting type (see [reference doc](http://pear.php.net/manual/en/package.php.php-codesniffer.config-options.php)) | defaults to "emacs"
