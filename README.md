@@ -74,3 +74,9 @@ After this, **'all your comits are belongs to us'**. All your commits will be ch
     * config parameters : 
         * 'muhafiz.runners.phpcs.standard' : set coding standard (see [reference doc](http://pear.php.net/manual/en/package.php.php-codesniffer.config-options.php)) | defaults to "PEAR"
         * 'muhafiz.runners.phpcs.report' : set reporting type (see [reference doc](http://pear.php.net/manual/en/package.php.php-codesniffer.config-options.php)) | defaults to "emacs"
+
+
+## TODO
+* add file filter for runners, such as *.php for 'phpcs', *.js for jslint
+* verbose options
+* add an option to bypass errors and allow commit
