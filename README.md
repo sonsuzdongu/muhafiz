@@ -53,7 +53,7 @@ And put the src directory in somewhere (eg. /usr/share/muhafiz/src)
 
 ## Configuration
 
-You have to set your 'muhafiz.bootstrap-file' git config seting to show your *muhafiz* bootstrap file
+You have to set your **'muhafiz.bootstrap-file'** git config seting to show your **muhafiz** bootstrap file
 
     $ git config muhafiz.bootstrap-file /usr/share/muhafiz/src/bootstrap.php
 
@@ -66,11 +66,11 @@ Then you have to set the comma separated list of code checkers(aka runners) usin
  
     $ git config muhafiz.active-runners 'phpcs, jshint'
 
-After this, *'all your comits are belongs to us'*. All your commits will be checked by given runners and commit will be prevented if are there any errors
+After this, **'all your comits are belongs to us'**. All your commits will be checked by given runners and commit will be prevented if are there any errors
 
 ## Runners
 
-* *phpcs* ([PhpCodeSniffer](http://pear.php.net/package/PHP_CodeSniffer/redirected))
+* **phpcs** ([PhpCodeSniffer](http://pear.php.net/package/PHP_CodeSniffer/redirected))
     * config parameters : 
         * 'muhafiz.adapters.phpcs.standard' : set coding standard (see [reference doc](http://pear.php.net/manual/en/package.php.php-codesniffer.config-options.php)) | defaults to "PEAR"
         * 'muhafiz.adapters.phpcs.report' : set reporting type (see [reference doc](http://pear.php.net/manual/en/package.php.php-codesniffer.config-options.php)) | defaults to "emacs"
