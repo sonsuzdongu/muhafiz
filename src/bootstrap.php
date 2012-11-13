@@ -32,6 +32,12 @@ try {
     $muhafiz->run();
     exit(0);
 }
+catch(Exceptions_ToolNotFound $e) 
+{
+    echo "FATAL!!!\n";
+    echo $e->getMessage() . "\n";
+    exit(1);
+}
 catch(Exceptions_RuleFailed $e) 
 {
     echo "Cannot continue commit, please fix these\n\n";

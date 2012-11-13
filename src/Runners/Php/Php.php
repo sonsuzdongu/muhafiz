@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 /* vim: set expandtab sw=4 ts=4 sts=4: */
 
@@ -14,17 +13,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
 /**
- * git pre-commit hook which will run given tests using Muhafiz
- */ 
-$configParam = "muhafiz.bootstrap-file"; 
-exec("git config ${configParam}", $output, $exitCode);
+ * Check syntax errors on php file
+ */
+class Runners_Php_Php extends Runners_Abstract
+{
+    protected $_name = "Php Linter";
+    protected $_toolName = "php";
+    protected $_toolCheckCommand = "which php && php --version";
 
-$bootstrapFile = current($output);
+    function apply(array $files)
+    {
+        foreach ($files as $file) {
+            //force php to display_errors and run php linter, also redirect stderr to stdout
+            $out = Utils_System::runCommand("php -l ${file} -d display_errors=1 2>&1");
 
-if ($exitCode != 0 || !file_exists("$bootstrapFile")) {
-    exit("Bootstrap path not set properly. Cannot continue! Check your '$ git config ${configParam}'\n");
+            if ($out['exitCode'] != 0) {
+                $this->_onRuleFailed($out);
+            }
+        }
+    }
 }
-
-$GLOBALS['dir'] = realpath(__DIR__ ."/../../");
-include_once($bootstrapFile);

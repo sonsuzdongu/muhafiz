@@ -15,22 +15,21 @@
 
 
 /**
- * Php CodeSniffer adapter to check files using phpcs
+ * Check JavaScript files using 'jshint'
  */
-class Runners_Phpcs_Phpcs extends Runners_Abstract
+class Runners_Jshint_Jshint extends Runners_Abstract
 {
-    protected $_name = "Php CodeSniffer";
-    protected $_toolName = "phpcs";
-    protected $_toolCheckCommand = "which phpcs && phpcs --version | grep -iq php_codesniffer";
+    protected $_name = "JSHint";
+    protected $_toolName = "JSHint";
+    protected $_toolCheckCommand = "which jshint && jshint --version";
 
     function apply(array $files)
     {
         //get required config params
-        $standard = Utils_Git::getConfig("muhafiz.runners.phpcs.standard", "PEAR");
-        $report = Utils_Git::getConfig("muhafiz.runners.phpcs.report", "emacs");
+        $configFile = Utils_Git::getConfig("muhafiz.runners.jshint.config", ".jshintrc");
 
         foreach ($files as $file) {
-            $out = Utils_System::runCommand("phpcs ${file} --standard=${standard} --report=${report}");
+            $out = Utils_System::runCommand("jshint ${file} --config=${configFile}");
 
             if ($out['exitCode'] != 0) {
                 $this->_onRuleFailed($out);
