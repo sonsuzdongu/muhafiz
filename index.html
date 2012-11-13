@@ -116,11 +116,15 @@ $ sudo git config --system muhafiz.bootstrap-file /usr/share/muhafiz/src/bootstr
 <pre><code>$ git config muhafiz.active-runners 'phpcs, jshint'
 </code></pre>
 
-<p>After this, <strong>'all your comits are belongs to us'</strong>. All your commits will be checked by given runners and commit will be prevented if are there any errors</p>
+<p>After this, <strong>'all your commits are belongs to us'</strong>. All your commits will be checked by given runners and commit will be prevented if are there any errors</p>
 
 <h2>Runners</h2>
 
 <ul>
+<li>
+<strong>bom</strong>  Check files for byte order mark</li>
+<li>
+<strong>php</strong>  Check php files for syntax errors using 'php -l' command line tool</li>
 <li>
 <strong>phpcs</strong> (<a href="http://pear.php.net/package/PHP_CodeSniffer/redirected">PhpCodeSniffer</a>)
 
@@ -130,6 +134,30 @@ $ sudo git config --system muhafiz.bootstrap-file /usr/share/muhafiz/src/bootstr
 <ul>
 <li>'muhafiz.runners.phpcs.standard' : set coding standard (see <a href="http://pear.php.net/manual/en/package.php.php-codesniffer.config-options.php">reference doc</a>) | defaults to "PEAR"</li>
 <li>'muhafiz.runners.phpcs.report' : set reporting type (see <a href="http://pear.php.net/manual/en/package.php.php-codesniffer.config-options.php">reference doc</a>) | defaults to "emacs"</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>jshint</strong> (<a href="http://www.jshint.com/platforms/">JSHint Node.js Command Line Tool</a>)
+
+<ul>
+<li>config parameters : 
+
+<ul>
+<li>'muhafiz.runners.jshint.config' : jshint config file (see <a href="http://www.jshint.com/docs/">reference doc</a>) | defaults to ".jshintrc"</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>lineend</strong> Check files' line endings
+
+<ul>
+<li>config parameters : 
+
+<ul>
+<li>'muhafiz.runners.lineend.allowed' : should be 'unix' or 'windows' </li>
 </ul>
 </li>
 </ul>
