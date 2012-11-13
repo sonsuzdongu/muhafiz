@@ -26,25 +26,31 @@ ini_set("display_errors", true);
 include_once("AutoLoader.php");
 AutoLoader::getInstance();
 
-$muhafiz = new Muhafiz($GLOBALS['dir']);
+$muhafiz = new Muhafiz\Muhafiz($GLOBALS['dir']);
 
 try {
     $muhafiz->run();
     exit(0);
 }
-catch(Exceptions_ToolNotFound $e) 
+catch(\Muhafiz\Exceptions\ToolNotFound $e) 
 {
     echo "FATAL!!!\n";
     echo $e->getMessage() . "\n";
     exit(1);
 }
-catch(Exceptions_RuleFailed $e) 
+catch(\Muhafiz\Exceptions\ToolNotFound $e) 
+{
+    echo "FATAL!!!\n";
+    echo $e->getMessage() . "\n";
+    exit(1);
+}
+catch(\Muhafiz\Exceptions\RuleFailed $e) 
 {
     echo "Cannot continue commit, please fix these\n\n";
     echo $e->getMessage() . "\n";
     exit(1);
 }
-catch(Exception $e) 
+catch(\Exception $e) 
 {
     echo "Something went wrong\n\n";
     echo $e->getMessage() . "\n";

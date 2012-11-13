@@ -13,10 +13,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
+namespace Muhafiz\Utils;
+use Muhafiz\Utils\System as Sys;
+
 /**
  * Git helper which supplies a high-level API for git command
  */
-class Utils_Git
+class Git
 {
     /**
      * return list of staged files
@@ -24,7 +28,7 @@ class Utils_Git
      */
     public static function getStagedFiles()
     {
-        return Utils_System::runCommand("git diff --cached --name-only --diff-filter=ACM");
+        return Sys::runCommand("git diff --cached --name-only --diff-filter=ACM");
     }
 
 
@@ -34,7 +38,7 @@ class Utils_Git
      */
     public static function getNewFiles()
     {
-        return static::_removeFileFlag(Utils_System::runCommand("git status --short | grep ^A"));
+        return static::_removeFileFlag(Sys::runCommand("git status --short | grep ^A"));
     }
 
 
@@ -46,7 +50,7 @@ class Utils_Git
      */
     public static function getConfig($key, $defaultValue = null)
     {
-        $result = Utils_System::runCommand("git config ${key}");
+        $result = Sys::runCommand("git config ${key}");
         return isset($result['output'][0]) ? $result['output'][0] : $defaultValue;
     }
 
@@ -59,7 +63,7 @@ class Utils_Git
      */
     public static function setConfig($key, $value)
     {
-        $result = Utils_System::runCommand("git config ${key} ${value}");
+        $result = Sys::runCommand("git config ${key} ${value}");
         return $result['exitCode'] == 0;
     }
 

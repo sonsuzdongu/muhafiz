@@ -14,33 +14,33 @@
 // limitations under the License.
 
 
-/**
- * Check file for Byte Order Mark
- */
-class Runners_Bom_Bom extends Runners_Abstract
-{
-    protected $_name = "ByteOrderMark";
-    protected $_toolName = "cat";
-    protected $_toolCheckCommand = "which cat && cat --version";
+namespace Muhafiz\Runners;
+use Muhafiz\Utils\System as Sys;
+use Muhafiz\Utils\Git as Git;
+use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
 
-    function apply(array $files)
+
+/**
+ * Php CodeSniffer adapter to check files using phpcs
+ */
+class Phpcs extends RunnersAbstract
+{
+    protected $_name = "Php CodeSniffer";
+    protected $_toolName = "phpcs";
+    protected $_toolCheckCommand = "which phpcs && phpcs --version | grep -iq php_codesniffer";
+
+    function run(array $files)
     {
+        //get required config params
+        $standard = Git::getConfig("muhafiz.runners.phpcs.standard", "PEAR");
+        $report = Git::getConfig("muhafiz.runners.phpcs.report", "emacs");
+
         foreach ($files as $file) {
-            //cat file with --show-nonprinting option 
-            //and see if it contains BOM
-            $out = Utils_System::runCommand("cat --show-nonprinting ${file} | grep -iq '^M-oM-;M-?'");
+            $out = Sys::runCommand("phpcs ${file} --standard=${standard} --report=${report}");
 
             if ($out['exitCode'] != 0) {
                 $this->_onRuleFailed($out);
             }
         }
-    }
-
-    /**
-     * @override
-     */
-    protected function _onRuleFailed(array $out)
-    {
-        throw new Exceptions_RuleFailed($this->_name . " : This file contains BOM");
     }
 }
