@@ -19,6 +19,10 @@
  */
 class Runners_Phpcs_Phpcs extends Runners_Abstract
 {
+    protected $_name = "Php CodeSniffer";
+    protected $_toolName = "phpcs";
+    protected $_toolCheckCommand = "which phpcs && phpcs --version | grep -iq php_codesniffer";
+
     function apply(array $files)
     {
         //get required config params
@@ -29,7 +33,7 @@ class Runners_Phpcs_Phpcs extends Runners_Abstract
             $out = Utils_System::runCommand("phpcs ${file} --standard=${standard} --report=${report}");
 
             if ($out['exitCode'] != 0) {
-                throw new Exceptions_RuleFailed("PHP CodeSniffer : " . $out['output'][0]);
+                $this->_onRuleFailed($out);
             }
         }
     }

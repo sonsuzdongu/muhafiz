@@ -13,25 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-/**
- * Check syntax errors on php file
- */
-class Runners_Php_Php extends Runners_Abstract
+class Exceptions_ToolNotFound extends Exception
 {
-    protected $_name = "Php Linter";
-    protected $_toolName = "php";
-    protected $_toolCheckCommand = "which php && php --version";
-
-    function apply(array $files)
-    {
-        foreach ($files as $file) {
-            //force php to display_errors and run php linter, also redirect stderr to stdout
-            $out = Utils_System::runCommand("php -l ${file} -d display_errors=1 2>&1");
-
-            if ($out['exitCode'] != 0) {
-                $this->_onRuleFailed($out);
-            }
-        }
-    }
 }

@@ -18,5 +18,32 @@
  */
 abstract class Runners_Abstract
 {
-    abstract function apply (array $files);
+    /**
+     * If any other tool needed for this runner
+     * check availilibility of this by executing $_toolCheckCommand
+     */
+    public final function __construct()
+    {
+        if ($this->_toolCheckCommand) {
+            $cmdOut = Utils_System::runCommand($this->_toolCheckCommand);
+            if ($cmdOut['exitCode'] != 0) {
+                $msg = "'" . $this->_toolName . "' is not installed on your system";
+                throw new Exceptions_ToolNotFound($this->_name . " : " . $msg);
+            }
+        }
+    }
+
+    /**
+     * a wrapper which we may use to collect all errors and throw at once
+     * @param mixed $out command output
+     */
+    protected function _onRuleFailed(array $out)
+    {
+        throw new Exceptions_RuleFailed($this->_name . " : " . $out['output'][0]);
+    }
+
+    /**
+     * Runner method which should return boolean or throw an exception
+     */ 
+    abstract public function apply (array $files);
 }
