@@ -41,8 +41,9 @@ class Muhafiz
             $className = "Runners_" . ucfirst($activeRunner) . "_" .ucfirst($activeRunner);
             if (class_exists($className) && is_subclass_of($className, "Runners_Abstract")) {
                 $runner = new $className();
-                echo "running $activeRunner \n";
+                echo "running $activeRunner ... ";
                 $runner->apply($stagedFiles['output']);
+                echo "DONE \n";
             } else {
                 throw new Exception("$activeRunner runner not defined!");
             }

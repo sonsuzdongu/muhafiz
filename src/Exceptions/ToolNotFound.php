@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 /* vim: set expandtab sw=4 ts=4 sts=4: */
 
@@ -14,17 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * git pre-commit hook which will run given tests using Muhafiz
- */ 
-$configParam = "muhafiz.bootstrap-file"; 
-exec("git config ${configParam}", $output, $exitCode);
-
-$bootstrapFile = current($output);
-
-if ($exitCode != 0 || !file_exists("$bootstrapFile")) {
-    exit("Bootstrap path not set properly. Cannot continue! Check your '$ git config ${configParam}'\n");
+class Exceptions_ToolNotFound extends Exception
+{
 }
-
-$GLOBALS['dir'] = realpath(__DIR__ ."/../../");
-include_once($bootstrapFile);

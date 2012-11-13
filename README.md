@@ -66,14 +66,22 @@ Then you have to set the comma separated list of code checkers(aka runners) usin
  
     $ git config muhafiz.active-runners 'phpcs, jshint'
 
-After this, **'all your comits are belongs to us'**. All your commits will be checked by given runners and commit will be prevented if are there any errors
+After this, **'all your commits are belongs to us'**. All your commits will be checked by given runners and commit will be prevented if are there any errors
 
 ## Runners
-
+* **bom**  Check files for byte order mark
+* **php**  Check php files for syntax errors using 'php -l' command line tool
 * **phpcs** ([PhpCodeSniffer](http://pear.php.net/package/PHP_CodeSniffer/redirected))
     * config parameters : 
         * 'muhafiz.runners.phpcs.standard' : set coding standard (see [reference doc](http://pear.php.net/manual/en/package.php.php-codesniffer.config-options.php)) | defaults to "PEAR"
         * 'muhafiz.runners.phpcs.report' : set reporting type (see [reference doc](http://pear.php.net/manual/en/package.php.php-codesniffer.config-options.php)) | defaults to "emacs"
+* **jshint** ([JSHint Node.js Command Line Tool](http://www.jshint.com/platforms/))
+    * config parameters : 
+        * 'muhafiz.runners.jshint.config' : jshint config file (see [reference doc](http://www.jshint.com/docs/)) | defaults to ".jshintrc"
+* **lineend** Check files' line endings
+    * config parameters : 
+        * 'muhafiz.runners.lineend.allowed' : should be 'unix' or 'windows' 
+
 
 
 ## TODO
