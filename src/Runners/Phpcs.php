@@ -29,7 +29,7 @@ class Phpcs extends RunnersAbstract
     protected $_toolName = "phpcs";
     protected $_toolCheckCommand = "which phpcs && phpcs --version | grep -iq php_codesniffer";
 
-    function apply(array $files)
+    function run(array $files)
     {
         //get required config params
         $standard = Git::getConfig("muhafiz.runners.phpcs.standard", "PEAR");

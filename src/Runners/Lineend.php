@@ -27,7 +27,7 @@ class Lineend extends RunnersAbstract
     protected $_toolName = "cat and wc";
     protected $_toolCheckCommand = "which cat && cat --version && which wc && wc --version";
 
-    function apply(array $files)
+    function run(array $files)
     {
 
         //get required config params

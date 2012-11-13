@@ -26,7 +26,7 @@ class Bom extends RunnersAbstract
     protected $_toolName = "cat";
     protected $_toolCheckCommand = "which cat && cat --version";
 
-    function apply(array $files)
+    function run(array $files)
     {
         foreach ($files as $file) {
             //cat file with --show-nonprinting option 

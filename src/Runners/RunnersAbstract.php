@@ -18,7 +18,7 @@ namespace Muhafiz\Runners;
 use Muhafiz\Utils\System as Sys;
 
 /**
- * All runners should have 'apply()' method for given files array
+ * All runners should have 'run()' method for given files array
  */
 abstract class RunnersAbstract
 {
@@ -49,5 +49,5 @@ abstract class RunnersAbstract
     /**
      * Runner method which should return boolean or throw an exception
      */ 
-    abstract public function apply (array $files);
+    abstract public function run (array $files);
 }

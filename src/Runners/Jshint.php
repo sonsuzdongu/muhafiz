@@ -28,7 +28,7 @@ class Jshint extends RunnersAbstract
     protected $_toolName = "JSHint";
     protected $_toolCheckCommand = "which jshint && jshint --version";
 
-    function apply(array $files)
+    function run(array $files)
     {
         //get required config params
         $configFile = Git::getConfig("muhafiz.runners.jshint.config", ".jshintrc");

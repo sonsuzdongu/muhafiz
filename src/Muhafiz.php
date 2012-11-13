@@ -51,7 +51,7 @@ class Muhafiz
 
                 $runner = new $className();
                 echo "running $activeRunner ... ";
-                $runner->apply($stagedFiles['output']);
+                $runner->run($stagedFiles['output']);
                 echo "DONE \n";
 
             } else {

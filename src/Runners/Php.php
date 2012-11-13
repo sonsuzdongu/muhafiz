@@ -28,7 +28,7 @@ class Php extends RunnersAbstract
     protected $_toolName = "php";
     protected $_toolCheckCommand = "which php && php --version";
 
-    function apply(array $files)
+    function run(array $files)
     {
         foreach ($files as $file) {
             //force php to display_errors and run php linter, also redirect stderr to stdout
