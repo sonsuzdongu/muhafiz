@@ -13,11 +13,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Muhafiz\Runners;
+use Muhafiz\Utils\System as Sys;
+use Muhafiz\Utils\Git as Git;
+use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
+
 
 /**
  * Check JavaScript files using 'jshint'
  */
-class Runners_Jshint_Jshint extends Runners_Abstract
+class Jshint extends RunnersAbstract
 {
     protected $_name = "JSHint";
     protected $_toolName = "JSHint";
@@ -26,10 +31,10 @@ class Runners_Jshint_Jshint extends Runners_Abstract
     function apply(array $files)
     {
         //get required config params
-        $configFile = Utils_Git::getConfig("muhafiz.runners.jshint.config", ".jshintrc");
+        $configFile = Git::getConfig("muhafiz.runners.jshint.config", ".jshintrc");
 
         foreach ($files as $file) {
-            $out = Utils_System::runCommand("jshint ${file} --config=${configFile}");
+            $out = Sys::runCommand("jshint ${file} --config=${configFile}");
 
             if ($out['exitCode'] != 0) {
                 $this->_onRuleFailed($out);

@@ -14,10 +14,16 @@
 // limitations under the License.
 
 
+namespace Muhafiz\Runners;
+use Muhafiz\Utils\System as Sys;
+use Muhafiz\Utils\Git as Git;
+use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
+
+
 /**
  * Php CodeSniffer adapter to check files using phpcs
  */
-class Runners_Phpcs_Phpcs extends Runners_Abstract
+class Phpcs extends RunnersAbstract
 {
     protected $_name = "Php CodeSniffer";
     protected $_toolName = "phpcs";
@@ -26,11 +32,11 @@ class Runners_Phpcs_Phpcs extends Runners_Abstract
     function apply(array $files)
     {
         //get required config params
-        $standard = Utils_Git::getConfig("muhafiz.runners.phpcs.standard", "PEAR");
-        $report = Utils_Git::getConfig("muhafiz.runners.phpcs.report", "emacs");
+        $standard = Git::getConfig("muhafiz.runners.phpcs.standard", "PEAR");
+        $report = Git::getConfig("muhafiz.runners.phpcs.report", "emacs");
 
         foreach ($files as $file) {
-            $out = Utils_System::runCommand("phpcs ${file} --standard=${standard} --report=${report}");
+            $out = Sys::runCommand("phpcs ${file} --standard=${standard} --report=${report}");
 
             if ($out['exitCode'] != 0) {
                 $this->_onRuleFailed($out);

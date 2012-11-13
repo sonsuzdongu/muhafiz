@@ -14,33 +14,29 @@
 // limitations under the License.
 
 
+namespace Muhafiz\Runners;
+use Muhafiz\Utils\System as Sys;
+use Muhafiz\Utils\Git as Git;
+use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
+
 /**
- * Check file for Byte Order Mark
+ * Check syntax errors on php file
  */
-class Runners_Bom_Bom extends Runners_Abstract
+class Php extends RunnersAbstract
 {
-    protected $_name = "ByteOrderMark";
-    protected $_toolName = "cat";
-    protected $_toolCheckCommand = "which cat && cat --version";
+    protected $_name = "Php Linter";
+    protected $_toolName = "php";
+    protected $_toolCheckCommand = "which php && php --version";
 
     function apply(array $files)
     {
         foreach ($files as $file) {
-            //cat file with --show-nonprinting option 
-            //and see if it contains BOM
-            $out = Utils_System::runCommand("cat --show-nonprinting ${file} | grep -iq '^M-oM-;M-?'");
+            //force php to display_errors and run php linter, also redirect stderr to stdout
+            $out = Sys::runCommand("php -l ${file} -d display_errors=1 2>&1");
 
             if ($out['exitCode'] != 0) {
                 $this->_onRuleFailed($out);
             }
         }
-    }
-
-    /**
-     * @override
-     */
-    protected function _onRuleFailed(array $out)
-    {
-        throw new Exceptions_RuleFailed($this->_name . " : This file contains BOM");
     }
 }

@@ -13,10 +13,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Muhafiz\Runners;
+
+use Muhafiz\Utils\System as Sys;
+
 /**
  * All runners should have 'apply()' method for given files array
  */
-abstract class Runners_Abstract
+abstract class RunnersAbstract
 {
     /**
      * If any other tool needed for this runner
@@ -25,10 +29,10 @@ abstract class Runners_Abstract
     public final function __construct()
     {
         if ($this->_toolCheckCommand) {
-            $cmdOut = Utils_System::runCommand($this->_toolCheckCommand);
+            $cmdOut = Sys::runCommand($this->_toolCheckCommand);
             if ($cmdOut['exitCode'] != 0) {
                 $msg = "'" . $this->_toolName . "' is not installed on your system";
-                throw new Exceptions_ToolNotFound($this->_name . " : " . $msg);
+                throw new \Muhafiz\Exceptions\ToolNotFound($this->_name . " : " . $msg);
             }
         }
     }
@@ -39,7 +43,7 @@ abstract class Runners_Abstract
      */
     protected function _onRuleFailed(array $out)
     {
-        throw new Exceptions_RuleFailed($this->_name . " : " . implode("\n", $out['output']));
+        throw new \Muhafiz\Exceptions\RuleFailed($this->_name . " : " . implode("\n", $out['output']));
     }
 
     /**
