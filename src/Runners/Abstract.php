@@ -39,7 +39,7 @@ abstract class Runners_Abstract
      */
     protected function _onRuleFailed(array $out)
     {
-        throw new Exceptions_RuleFailed($this->_name . " : " . $out['output'][0]);
+        throw new Exceptions_RuleFailed($this->_name . " : " . implode("\n", $out['output']));
     }
 
     /**
