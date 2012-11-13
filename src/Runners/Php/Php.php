@@ -15,21 +15,18 @@
 
 
 /**
- * Php CodeSniffer adapter to check files using phpcs
+ * Check syntax errors on php file
  */
-class Runners_Phpcs_Phpcs extends Runners_Abstract
+class Runners_Php_Php extends Runners_Abstract
 {
     function apply(array $files)
     {
-        //get required config params
-        $standard = Utils_Git::getConfig("muhafiz.runners.phpcs.standard", "PEAR");
-        $report = Utils_Git::getConfig("muhafiz.runners.phpcs.report", "emacs");
-
         foreach ($files as $file) {
-            $out = Utils_System::runCommand("phpcs ${file} --standard=${standard} --report=${report}");
+            //force php to display_errors and run php linter, also redirect stderr to stdout
+            $out = Utils_System::runCommand("php -l ${file} -d display_errors=1 2>&1");
 
             if ($out['exitCode'] != 0) {
-                throw new Exceptions_RuleFailed("PHP CodeSniffer : " . $out['output'][0]);
+                throw new Exceptions_RuleFailed("PHP Lint: " . $out['output'][0]);
             }
         }
     }
