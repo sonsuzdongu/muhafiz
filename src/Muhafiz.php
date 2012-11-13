@@ -31,7 +31,7 @@ class Muhafiz
      */
     public function run() 
     {
-        $activeRunnersConfig = Utils_Git::getConfig("muhafiz.active-runners", "phpcs");
+        $activeRunnersConfig = Utils_Git::getConfig("muhafiz.active-runners", "php, phpcs, jshint, lineend, bom");
         $activeRunners = explode(",", $activeRunnersConfig);
 
         $stagedFiles = Utils_Git::getStagedFiles();
