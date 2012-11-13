@@ -13,6 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
+namespace Muhafiz;
+use Muhafiz\Utils\System as Sys;
+use Muhafiz\Utils\Git as Git;
+use Muhafiz\Runners as Runners;
+
+
 /**
  * Muhafiz, code guard!
  *
@@ -31,21 +38,24 @@ class Muhafiz
      */
     public function run() 
     {
-        $activeRunnersConfig = Utils_Git::getConfig("muhafiz.active-runners", "phpcs");
+        $activeRunnersConfig = Git::getConfig("muhafiz.active-runners", "php, phpcs, jshint, lineend, bom");
         $activeRunners = explode(",", $activeRunnersConfig);
 
-        $stagedFiles = Utils_Git::getStagedFiles();
+        $stagedFiles = Git::getStagedFiles();
 
         foreach ($activeRunners as $activeRunner) {
             $activeRunner = trim($activeRunner);
-            $className = "Runners_" . ucfirst($activeRunner) . "_" .ucfirst($activeRunner);
-            if (class_exists($className) && is_subclass_of($className, "Runners_Abstract")) {
+            $className = "Muhafiz\\Runners\\" . ucfirst($activeRunner);
+
+            if (class_exists($className) && is_subclass_of($className, "\\Muhafiz\\Runners\\RunnersAbstract")) {
+
                 $runner = new $className();
                 echo "running $activeRunner ... ";
-                $runner->apply($stagedFiles['output']);
+                $runner->run($stagedFiles['output']);
                 echo "DONE \n";
+
             } else {
-                throw new Exception("$activeRunner runner not defined!");
+                throw new Exceptions\RunnerNotDefined("${activeRunner} runner not defined!");
             }
         }
 

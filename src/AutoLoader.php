@@ -68,7 +68,10 @@ class AutoLoader
             $requirePath = $filepath . ".php";
         }
 
-        @include_once($requirePath);
+        $requirePath = preg_replace("/^Muhafiz\\\/", "", $requirePath);
+        $requirePath = str_replace('\\', '/', $requirePath);
+
+        include_once($requirePath);
     }
 
 

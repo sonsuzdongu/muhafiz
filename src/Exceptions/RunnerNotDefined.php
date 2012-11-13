@@ -13,21 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Muhafiz\Utils;
+namespace Muhafiz\Exceptions;
 
-class System
+class RunnerNotDefined extends \Exception
 {
-    /**
-     * Run given command return output and exit code of this
-     * @return array
-     *
-     * TODO: we have to return a transfer object for type safe
-     * but there's a problem with adding additional scripts
-     * we'll look back later
-     */
-    public static function runCommand($command)
-    {
-        exec($command, $output, $exitCode);
-        return array("output" => $output, "exitCode" => $exitCode);
-    }
 }

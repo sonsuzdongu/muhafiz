@@ -14,22 +14,25 @@
 // limitations under the License.
 
 
+namespace Muhafiz\Runners;
+use Muhafiz\Utils\System as Sys;
+use Muhafiz\Utils\Git as Git;
+use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
+
 /**
- * Check JavaScript files using 'jshint'
+ * Check syntax errors on php file
  */
-class Runners_Jshint_Jshint extends Runners_Abstract
+class Php extends RunnersAbstract
 {
-    protected $_name = "JSHint";
-    protected $_toolName = "JSHint";
-    protected $_toolCheckCommand = "which jshint && jshint --version";
+    protected $_name = "Php Linter";
+    protected $_toolName = "php";
+    protected $_toolCheckCommand = "which php && php --version";
 
-    function apply(array $files)
+    function run(array $files)
     {
-        //get required config params
-        $configFile = Utils_Git::getConfig("muhafiz.runners.jshint.config", ".jshintrc");
-
         foreach ($files as $file) {
-            $out = Utils_System::runCommand("jshint ${file} --config=${configFile}");
+            //force php to display_errors and run php linter, also redirect stderr to stdout
+            $out = Sys::runCommand("php -l ${file} -d display_errors=1 2>&1");
 
             if ($out['exitCode'] != 0) {
                 $this->_onRuleFailed($out);

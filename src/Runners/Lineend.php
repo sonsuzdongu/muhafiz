@@ -13,25 +13,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Muhafiz\Runners;
+use Muhafiz\Utils\System as Sys;
+use Muhafiz\Utils\Git as Git;
+use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
 
 /**
  * Check file for allowed line-end (unix|windows)
  */
-class Runners_Lineend_Lineend extends Runners_Abstract
+class Lineend extends RunnersAbstract
 {
     protected $_name = "Check Line Ends";
     protected $_toolName = "cat and wc";
     protected $_toolCheckCommand = "which cat && cat --version && which wc && wc --version";
 
-    function apply(array $files)
+    function run(array $files)
     {
 
         //get required config params
         //TODO: check for valid parameters
-        $allowedLineEnd = Utils_Git::getConfig("muhafiz.runners.lineend.allowed", "unix");
+        $allowedLineEnd = Git::getConfig("muhafiz.runners.lineend.allowed", "unix");
 
         foreach ($files as $file) {
-            $out = Utils_System::runCommand("echo `cat -e ${file} | wc -l`,`cat -e ${file} | grep '\^M\$$' | wc -l`");
+            $out = Sys::runCommand("echo `cat -e ${file} | wc -l`,`cat -e ${file} | grep '\^M\$$' | wc -l`");
             list($total, $windows) = explode(",", $out['output'][0]);
 
             $unix = $total - $windows;
@@ -51,6 +55,6 @@ class Runners_Lineend_Lineend extends Runners_Abstract
     protected function _onRuleFailed(array $out, $args = null)
     {
         $msg = "'".$args['file']."' doesn't have '".$args['allowed']."' line endings";
-        throw new Exceptions_RuleFailed($this->_name . " : " . $msg);
+        throw new \Muhafiz\Exceptions\RuleFailed($this->_name . " : " . $msg);
     }
 }
