@@ -28,9 +28,13 @@ class Php extends RunnersAbstract
     protected $_toolName = "php";
     protected $_toolCheckCommand = "which php && php --version";
 
-    function run(array $files)
+    public function run(array $files)
     {
         foreach ($files as $file) {
+            $extension = pathinfo($file, PATHINFO_EXTENSION);
+            if (!preg_match('/^ph(p|tml)$/', $extension)) {
+                continue;
+            }
             //force php to display_errors and run php linter, also redirect stderr to stdout
             $out = Sys::runCommand("php -l ${file} -d display_errors=1 2>&1");
 

@@ -35,6 +35,10 @@ class Phpcsfixer extends RunnersAbstract
         $standard = Git::getConfig("muhafiz.runners.php-cs-fixer.standard", "psr2");        
 
         foreach ($files as $file) {
+            $extension = pathinfo($file, PATHINFO_EXTENSION);
+            if (!preg_match('/^ph(p|tml)$/', $extension)) {
+                continue;
+            }           
             $out = Sys::runCommand("php-cs-fixer fix --dry-run --level=${standard} ${file}");
 
             if (count($out['output']) > 0) {
