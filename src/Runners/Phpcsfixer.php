@@ -28,6 +28,7 @@ class Phpcsfixer extends RunnersAbstract
     protected $_name = "PHP Coding Standards Fixer";
     protected $_toolName = "php-cs-fixer";
     protected $_toolCheckCommand = "which php-cs-fixer && php-cs-fixer --version | grep -iq 'PHP CS Fixer'";
+    protected $_fileFilterRegexp = "/\.ph(p|tml)$/"; //php and phtml files should be checked
 
     public function run(array $files)
     {

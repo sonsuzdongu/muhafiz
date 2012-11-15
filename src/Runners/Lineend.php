@@ -26,6 +26,7 @@ class Lineend extends RunnersAbstract
     protected $_name = "Check Line Ends";
     protected $_toolName = "cat and wc";
     protected $_toolCheckCommand = "which cat && cat --version && which wc && wc --version";
+    protected $_fileFilterRegexp = null; //all files should be checked
 
     function run(array $files)
     {

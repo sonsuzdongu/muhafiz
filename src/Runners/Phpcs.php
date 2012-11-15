@@ -28,6 +28,7 @@ class Phpcs extends RunnersAbstract
     protected $_name = "Php CodeSniffer";
     protected $_toolName = "phpcs";
     protected $_toolCheckCommand = "which phpcs && phpcs --version | grep -iq php_codesniffer";
+    protected $_fileFilterRegexp = "/\.ph(p|tml)$/"; //php and phtml files should be checked
 
     function run(array $files)
     {

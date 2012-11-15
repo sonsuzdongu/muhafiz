@@ -73,10 +73,9 @@ class Muhafiz
             $className = "Muhafiz\\Runners\\" . ucfirst($activeRunner);
 
             if (class_exists($className) && is_subclass_of($className, "\\Muhafiz\\Runners\\RunnersAbstract")) {
-
                 $runner = new $className();
                 echo "running $activeRunner ... ";
-                $runner->run($files);
+                $runner->init($files);
                 echo "DONE \n";
 
             } else {

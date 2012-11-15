@@ -25,6 +25,7 @@ class Bom extends RunnersAbstract
     protected $_name = "ByteOrderMark";
     protected $_toolName = "cat";
     protected $_toolCheckCommand = "which cat && cat --version";
+    protected $_fileFilterRegexp = null; //all files should be checked
 
     function run(array $files)
     {

@@ -27,6 +27,7 @@ class Php extends RunnersAbstract
     protected $_name = "Php Linter";
     protected $_toolName = "php";
     protected $_toolCheckCommand = "which php && php --version";
+    protected $_fileFilterRegexp = "/\.ph(p|tml)$/"; //php and phtml files should be checked
 
     function run(array $files)
     {
