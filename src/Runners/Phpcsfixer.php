@@ -27,9 +27,9 @@ class Phpcsfixer extends RunnersAbstract
 {
     protected $_name = "PHP Coding Standards Fixer";
     protected $_toolName = "php-cs-fixer";
-    protected $_toolCheckCommand = "which php-cs-fixer && php-cs-fixer --version | grep -iq Fixer";
+    protected $_toolCheckCommand = "which php-cs-fixer && php-cs-fixer --version | grep -iq 'PHP CS Fixer'";
 
-    function run(array $files)
+    public function run(array $files)
     {
         //get required config params
         $standard = Git::getConfig("muhafiz.runners.php-cs-fixer.standard", "psr2");        
