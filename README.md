@@ -90,4 +90,3 @@ After this, **'all your commits are belongs to us'**. All your commits will be c
 ## TODO
 * add file filter for runners, such as *.php for 'phpcs', *.js for jslint
 * verbose options
-* add an option to bypass errors and allow commit

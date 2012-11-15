@@ -47,6 +47,11 @@ catch(\Muhafiz\Exceptions\RuleFailed $e)
 {
     echo "Cannot continue commit, please fix these\n\n";
     echo $e->getMessage() . "\n";
+
+    if ($GLOBALS['hookType'] == "pre-commit") {
+        echo "-----\nYou can bypass this check with 'git commit -n', or you can remove this runner\n-----\n";
+    }
+
     exit(1);
 }
 catch(\Exception $e) 
