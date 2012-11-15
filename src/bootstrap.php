@@ -26,10 +26,9 @@ ini_set("display_errors", true);
 include_once("AutoLoader.php");
 AutoLoader::getInstance();
 
-$muhafiz = new Muhafiz\Muhafiz($GLOBALS['dir']);
-
+$muhafiz = new Muhafiz\Muhafiz();
 try {
-    $muhafiz->run();
+    $muhafiz->init($GLOBALS);
     exit(0);
 }
 catch(\Muhafiz\Exceptions\ToolNotFound $e) 

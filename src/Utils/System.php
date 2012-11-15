@@ -30,4 +30,18 @@ class System
         exec($command, $output, $exitCode);
         return array("output" => $output, "exitCode" => $exitCode);
     }
+
+    /**
+     * unline given files
+     *
+     * @param array $files list of files
+     * @return void
+     */
+    public static function removeFiles(array $files)
+    {
+        foreach ($files as $file) {
+            unlink($file);
+        }
+    }
+
 }
