@@ -88,5 +88,5 @@ After this, **'all your commits are belongs to us'**. All your commits will be c
 
 
 ## TODO
-* add file filter for runners, such as *.php for 'phpcs', *.js for jslint
+* Define "exclude paths" in git config that runners should not work on
 * verbose options
