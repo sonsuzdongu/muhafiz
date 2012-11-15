@@ -27,4 +27,5 @@ if ($exitCode != 0 || !file_exists("$bootstrapFile")) {
 }
 
 $GLOBALS['dir'] = realpath(__DIR__ ."/../../");
+$GLOBALS['hookType'] = "pre-commit";
 include_once($bootstrapFile);
