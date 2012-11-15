@@ -43,6 +43,40 @@ class Git
 
 
     /**
+     * Get list of files between revisions by generating last file as a tmp
+     * source so we can get them on pre-receive hook
+     *
+     * @param string $firstRev first revision
+     * @param string $secondRev revision after commit
+     * @return array list of files
+     */
+    public static function getFilesAfterCommit($firstRev, $secondRev)
+    {
+        $firstRev = trim($firstRev);
+        $secondRev = trim($secondRev);
+
+        $tmpDir = "/tmp/"; //TODO: this should be configurable
+
+        $files = array();
+
+        $diff = Sys::runCommand("git diff --name-only $firstRev $secondRev 2> /dev/null");
+
+        foreach ($diff['output'] as $file) {
+            $tree = Sys::runCommand("git ls-tree $secondRev $file 2> /dev/null");
+            $tree = preg_split('/\s/', $tree['output'][0]);
+
+            $tmpFile = $tmpDir . uniqid("kavuq_") . "_" . $file;
+
+            Sys::runCommand("git cat-file $tree[1] $tree[2] > ${tmpFile} 2> /dev/null");
+
+            $files[] = $tmpFile;
+        }
+
+        return $files;
+    }
+
+
+    /**
      * read config from given key
      * @param string $key key to read
      * @param string|null $defaultValue default value for key, if value not set
