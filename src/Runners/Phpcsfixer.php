@@ -21,7 +21,7 @@ use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
 
 
 /**
- * Php CodeSniffer adapter to check files using phpcs
+ * PHP Coding Standards Fixer adapter to check files using php-cs-fixer
  */
 class Phpcsfixer extends RunnersAbstract
 {
