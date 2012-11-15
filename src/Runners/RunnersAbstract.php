@@ -38,6 +38,19 @@ abstract class RunnersAbstract
     }
 
     /**
+     * Filter files and call run() of runner
+     *
+     * @param array $files list of files
+     */
+    public function init($files)
+    {
+        $files = $this->_filterFiles($files);
+        $this->run($files);
+    }
+
+
+
+    /**
      * a wrapper which we may use to collect all errors and throw at once
      * @param mixed $out command output
      */
@@ -45,6 +58,35 @@ abstract class RunnersAbstract
     {
         throw new \Muhafiz\Exceptions\RuleFailed($this->_name . " : " . implode("\n", $out['output']));
     }
+
+
+
+
+    /**
+     * filter files matching $_fileFilterRegexp
+     *
+     * @return string
+     */
+    private function _filterFiles($files)
+    {
+        if ($this->_fileFilterRegexp) {
+            $files = array_filter($files, array($this, "_filterByRegexp"));
+        }
+        return $files;
+    }
+
+
+    /**
+     * callback function for array_filter
+     *
+     * @param mixed $input
+     */
+    private function _filterByRegexp($input)
+    {
+        return preg_match($this->_fileFilterRegexp, $input);
+    }
+
+
 
     /**
      * Runner method which should return boolean or throw an exception
