@@ -75,6 +75,9 @@ After this, **'all your commits are belongs to us'**. All your commits will be c
     * config parameters : 
         * 'muhafiz.runners.phpcs.standard' : set coding standard (see [reference doc](http://pear.php.net/manual/en/package.php.php-codesniffer.config-options.php)) | defaults to "PEAR"
         * 'muhafiz.runners.phpcs.report' : set reporting type (see [reference doc](http://pear.php.net/manual/en/package.php.php-codesniffer.config-options.php)) | defaults to "emacs"
+* **php-cs-fixer** ([Php CS Fixer](http://cs.sensiolabs.org/))
+    * config parameters : 
+        * 'muhafiz.runners.php-cs-fixer.standard' : set coding standard (see [reference doc](http://cs.sensiolabs.org/)) | defaults to "psr2"
 * **jshint** ([JSHint Node.js Command Line Tool](http://www.jshint.com/platforms/))
     * config parameters : 
         * 'muhafiz.runners.jshint.config' : jshint config file (see [reference doc](http://www.jshint.com/docs/)) | defaults to ".jshintrc"
