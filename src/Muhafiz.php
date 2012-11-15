@@ -69,7 +69,7 @@ class Muhafiz
         $activeRunners = explode(",", $activeRunnersConfig);
 
         foreach ($activeRunners as $activeRunner) {
-            $activeRunner = trim($activeRunner);
+            $activeRunner = str_replace('-', '', trim($activeRunner));
             $className = "Muhafiz\\Runners\\" . ucfirst($activeRunner);
 
             if (class_exists($className) && is_subclass_of($className, "\\Muhafiz\\Runners\\RunnersAbstract")) {
