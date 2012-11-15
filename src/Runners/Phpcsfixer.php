@@ -12,33 +12,36 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+//@link https://github.com/fabpot/PHP-CS-Fixer
 
 namespace Muhafiz\Runners;
 use Muhafiz\Utils\System as Sys;
 use Muhafiz\Utils\Git as Git;
 use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
 
-/**
- * Check syntax errors on php file
- */
-class Php extends RunnersAbstract
-{
-    protected $_name = "Php Linter";
-    protected $_toolName = "php";
-    protected $_toolCheckCommand = "which php && php --version";
 
-    public function run(array $files)
+/**
+ * PHP Coding Standards Fixer adapter to check files using php-cs-fixer
+ */
+class Phpcsfixer extends RunnersAbstract
+{
+    protected $_name = "PHP Coding Standards Fixer";
+    protected $_toolName = "php-cs-fixer";
+    protected $_toolCheckCommand = "which php-cs-fixer && php-cs-fixer --version | grep -iq 'PHP CS Fixer'";
+
+    function run(array $files)
     {
+        //get required config params
+        $standard = Git::getConfig("muhafiz.runners.php-cs-fixer.standard", "psr2");        
+
         foreach ($files as $file) {
             $extension = pathinfo($file, PATHINFO_EXTENSION);
             if (!preg_match('/^ph(p|tml)$/', $extension)) {
                 continue;
-            }
-            //force php to display_errors and run php linter, also redirect stderr to stdout
-            $out = Sys::runCommand("php -l ${file} -d display_errors=1 2>&1");
+            }           
+            $out = Sys::runCommand("php-cs-fixer fix --dry-run --level=${standard} ${file}");
 
-            if ($out['exitCode'] != 0) {
+            if (count($out['output']) > 0) {
                 $this->_onRuleFailed($out);
             }
         }
