@@ -65,11 +65,11 @@ class Muhafiz
      */
     public function run($files)
     {
-        $activeRunnersConfig = Git::getConfig("muhafiz.active-runners", "php, phpcs, jshint, lineend, bom");
+        $activeRunnersConfig = Git::getConfig("muhafiz.active-runners", "php, phpcs, php-cs-fixer, jshint, lineend, bom");
         $activeRunners = explode(",", $activeRunnersConfig);
 
         foreach ($activeRunners as $activeRunner) {
-            $activeRunner = trim($activeRunner);
+            $activeRunner = str_replace('-', '', trim($activeRunner));
             $className = "Muhafiz\\Runners\\" . ucfirst($activeRunner);
 
             if (class_exists($className) && is_subclass_of($className, "\\Muhafiz\\Runners\\RunnersAbstract")) {
