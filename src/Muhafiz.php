@@ -28,20 +28,45 @@ use Muhafiz\Runners as Runners;
  */ 
 class Muhafiz
 {
-    public function __construct($dir)
+    /**
+     * Init Muhafiz and run required methods by required parameters
+     * @param array $configParams $GLOBALS passed from git hooks
+     */
+    public function init($configParams)
     {
-        chdir($dir); //change current directory to git repository
+        if ($configParams['hookType'] == "pre-commit") {
+
+            chdir($configParams['dir']); //change current directory to git repository
+            $stagedFiles = Git::getStagedFiles();
+            $files = $stagedFiles['output'];
+            $this->run($files);
+
+        } elseif ($configParams['hookType'] == "pre-receive") {
+            $files = Git::getFilesAfterCommit($configParams['rev1'], $configParams['rev2']);
+            try {
+                $this->run($files);
+            }
+            catch(Exception $e){
+                //files on pre-receive hook are temporary files
+                //and should be removed
+                Sys::removeFiles($files);
+
+                //throw exception to bootsrap again
+                throw $e;
+            }
+        }
     }
+
 
     /**
      * check code by runners specified in 'muhafiz.active-runners' git config
+     *
+     * @param array $files list of files to be checked
      */
-    public function run() 
+    public function run($files)
     {
         $activeRunnersConfig = Git::getConfig("muhafiz.active-runners", "php, phpcs, jshint, lineend, bom");
         $activeRunners = explode(",", $activeRunnersConfig);
-
-        $stagedFiles = Git::getStagedFiles();
 
         foreach ($activeRunners as $activeRunner) {
             $activeRunner = trim($activeRunner);
@@ -51,13 +76,12 @@ class Muhafiz
 
                 $runner = new $className();
                 echo "running $activeRunner ... ";
-                $runner->run($stagedFiles['output']);
+                $runner->run($files);
                 echo "DONE \n";
 
             } else {
                 throw new Exceptions\RunnerNotDefined("${activeRunner} runner not defined!");
             }
         }
-
     }
 }
