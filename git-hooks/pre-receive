@@ -1,0 +1,37 @@
+#!/usr/bin/env php
+<?php
+/* vim: set expandtab sw=4 ts=4 sts=4: */
+
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS-IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+/**
+ * git pre-receive hook which will run given tests using Muhafiz on server side
+ */ 
+$configParam = "muhafiz.bootstrap-file"; 
+exec("git config ${configParam}", $output, $exitCode);
+
+$bootstrapFile = current($output);
+
+
+if ($exitCode != 0 || !file_exists("$bootstrapFile")) {
+    exit("Bootstrap path not set properly. Cannot continue! Check your '$ git config ${configParam}'\n");
+}
+
+list($rev1, $rev2) = explode(' ', file_get_contents('php://stdin'));
+
+$GLOBALS['dir'] = realpath(__DIR__ ."/../../");
+$GLOBALS['hookType'] = "pre-receive";
+$GLOBALS['rev1'] = $rev1;
+$GLOBALS['rev2'] = $rev2;
+
+include_once($bootstrapFile);
