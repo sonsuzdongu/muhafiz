@@ -1,6 +1,8 @@
 muhafiz
 =======
 
+Master: [![Build Status](https://secure.travis-ci.org/sonsuzdongu/muhafiz.png?branch=master)](http://travis-ci.org/sonsuzdongu/muhafiz)
+
 Guard your codebase from bad code!
 
                              ...',,,,,',:                                   
