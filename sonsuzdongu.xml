@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ruleset name="Sonsuzdongu">
+    <description>PHP Coding standards for Sonsuzdongu which extends Zend's standards but overrides some rules.</description>
+    <!-- extend Zend -->
+    <rule ref="Zend"></rule>
+
+    <!-- override lineLength rule to make it allow 120 chars per line -->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="120"/>
+        </properties>
+    </rule>
+
+</ruleset>
