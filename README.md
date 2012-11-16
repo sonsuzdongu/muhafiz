@@ -46,9 +46,9 @@ Guard your codebase from bad code!
 You need to copy the required git-hook to your project's .git/hooks directory 
 And put the src directory in somewhere (eg. /usr/share/muhafiz/src)
 
-    $ cp git-hooks/ANY-HOOOK /your/project/git-hooks
-    $ sudo mkdir /usr/share/muhafiz
-    $ sudo cp -r src /usr/share/muhafiz
+    $ sudo mkdir -p /usr/share/muhafiz
+    $ git clone git://github.com/sonsuzdongu/muhafiz.git /usr/share/muhafiz
+    $ cp ~/project/muhafiz/git-hooks/* /your/project/.git/hooks        
 
 
 ## Configuration
