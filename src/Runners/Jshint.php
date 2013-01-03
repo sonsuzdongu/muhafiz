@@ -27,7 +27,7 @@ class Jshint extends RunnersAbstract
     protected $_name = "JSHint";
     protected $_toolName = "JSHint";
     protected $_toolCheckCommand = "which jshint && jshint --version";
-    protected $_fileFilterRegexp = "/^\.js$/"; //only .js files should be checked
+    protected $_fileFilterRegexp = "/.*\.js$/"; //only .js files should be checked
 
     function run(array $files)
     {
