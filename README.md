@@ -50,7 +50,7 @@ And put the src directory in somewhere (eg. /usr/share/muhafiz/src)
 
     $ sudo mkdir -p /usr/share/muhafiz
     $ git clone git://github.com/sonsuzdongu/muhafiz.git /usr/share/muhafiz
-    $ cp ~/project/muhafiz/git-hooks/* /your/project/.git/hooks        
+    $ cp /usr/share/muhafiz/git-hooks/* /your/project/.git/hooks        
 
 
 ## Configuration
