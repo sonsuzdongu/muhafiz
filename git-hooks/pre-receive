@@ -24,7 +24,8 @@ $bootstrapFile = current($output);
 
 
 if ($exitCode != 0 || !file_exists("$bootstrapFile")) {
-    exit("Bootstrap path not set properly. Cannot continue! Check your '$ git config ${configParam}'\n");
+    echo("Bootstrap path not set properly. Cannot continue! Check your '$ git config ${configParam}'\n");
+    exit(1);
 }
 
 list($rev1, $rev2) = explode(' ', file_get_contents('php://stdin'));
