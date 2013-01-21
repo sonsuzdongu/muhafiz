@@ -23,7 +23,8 @@ exec("git config ${configParam}", $output, $exitCode);
 $bootstrapFile = current($output);
 
 if ($exitCode != 0 || !file_exists("$bootstrapFile")) {
-    exit("Bootstrap path not set properly. Cannot continue! Check your '$ git config ${configParam}'\n");
+    echo("Bootstrap path not set properly. Cannot continue! Check your '$ git config ${configParam}'\n");
+    exit(1);
 }
 
 $GLOBALS['dir'] = realpath(__DIR__ ."/../../");
