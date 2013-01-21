@@ -15,6 +15,6 @@
 
 namespace Muhafiz\Exceptions;
 
-class Exceptions_ToolNotFound extends \Exception
+class ToolNotFound extends \Exception
 {
 }
