@@ -66,7 +66,11 @@ class Git
             $tree = preg_split('/\s/', $tree['output'][0]);
 
             $tmpFile = $tmpDir . uniqid("kavuq_") . "_" . $file;
-
+            
+            $path = pathinfo($tmpFile);
+            
+            Sys::runCommand("mkdir -p ".$path['dirname']); // subdirectory files needs directory hierarchy
+            
             Sys::runCommand("git cat-file $tree[1] $tree[2] > ${tmpFile} 2> /dev/null");
 
             $files[] = $tmpFile;
