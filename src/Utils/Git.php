@@ -65,7 +65,7 @@ class Git
             $tree = Sys::runCommand("git ls-tree $secondRev $file 2> /dev/null");
             $tree = preg_split('/\s/', $tree['output'][0]);
 
-            $tmpFile = $tmpDir . uniqid("kavuq_") . "_" . $file;
+            $tmpFile = $tmpDir . uniqid("kavuq_") . "/" . $file;
             
             $path = pathinfo($tmpFile);
             
