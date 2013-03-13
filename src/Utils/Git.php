@@ -60,6 +60,10 @@ class Git
 
         foreach ($diff['output'] as $file) {
             $tree = Sys::runCommand("git ls-tree $secondRev $file 2> /dev/null");
+
+            //on file remove events
+            if (!isset($tree['output'][0])) continue;
+
             $tree = preg_split('/\s/', $tree['output'][0]);
 
             $tmpFile = $tmpDir . uniqid("muhafiz_") . "/" . $file;
