@@ -52,9 +52,6 @@ class Git
      */
     public static function getFilesAfterCommit($firstRev, $secondRev)
     {
-        $firstRev = trim($firstRev);
-        $secondRev = trim($secondRev);
-
         $tmpDir = "/tmp/"; //TODO: this should be configurable
 
         $files = array();
@@ -65,7 +62,7 @@ class Git
             $tree = Sys::runCommand("git ls-tree $secondRev $file 2> /dev/null");
             $tree = preg_split('/\s/', $tree['output'][0]);
 
-            $tmpFile = $tmpDir . uniqid("kavuq_") . "/" . $file;
+            $tmpFile = $tmpDir . uniqid("muhafiz_") . "/" . $file;
             
             $path = pathinfo($tmpFile);
             

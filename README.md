@@ -87,6 +87,9 @@ After this, **'all your commits are belongs to us'**. All your commits will be c
     * config parameters : 
         * 'muhafiz.runners.lineend.allowed' : should be 'unix' or 'windows' 
 
+## Disabling pushes to specific branches (Only on pre-receive hook)
+You can disable pushes to specific branches by
+    $ git config muhafiz.disabled-branches "foo bar"
 
 
 ## TODO
