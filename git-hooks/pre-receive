@@ -28,11 +28,12 @@ if ($exitCode != 0 || !file_exists("$bootstrapFile")) {
     exit(1);
 }
 
-list($rev1, $rev2) = explode(' ', file_get_contents('php://stdin'));
+list($rev1, $rev2, $ref) = array_map("trim", explode(' ', file_get_contents('php://stdin')));
 
 $GLOBALS['dir'] = realpath(__DIR__ ."/../../");
 $GLOBALS['hookType'] = "pre-receive";
 $GLOBALS['rev1'] = $rev1;
 $GLOBALS['rev2'] = $rev2;
+$GLOBALS['ref'] = $ref;
 
 include_once($bootstrapFile);

@@ -42,8 +42,9 @@ class Muhafiz
             $this->run($files);
 
         } elseif ($configParams['hookType'] == "pre-receive") {
-            $files = Git::getFilesAfterCommit($configParams['rev1'], $configParams['rev2']);
             try {
+                $this->_checkIfPushDisabled($configParams['ref']);
+                $files = Git::getFilesAfterCommit($configParams['rev1'], $configParams['rev2']);
                 $this->run($files);
             }
             catch(Exception $e){
@@ -53,6 +54,25 @@ class Muhafiz
 
                 //throw exception to bootsrap again
                 throw $e;
+            }
+        }
+    }
+
+
+    /**
+     * Check if pushing to branch is disabled
+     *
+     * @param string $ref git ref name
+     */
+    private function _checkIfPushDisabled($ref)
+    {
+        $branchName = str_replace("refs/heads/", "", $ref);
+        if ($config = Git::getConfig("muhafiz.disabled-branches", "")) {
+            $branches = array_map("trim", explode(" ", $config));
+            foreach ($branches as $branch) {
+                if ($branch == $branchName) {
+                    throw new Exceptions\BranchDisabled("Pushing to branch '${branchName}' have been disabled!");
+                }
             }
         }
     }
