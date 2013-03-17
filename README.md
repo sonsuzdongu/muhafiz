@@ -93,7 +93,7 @@ Exclude patterns can be set for each runner with setting a RegExp rule in 'muhaf
 
     $ muhafiz.runners.lineend.exclude-path '/static\/images/'
     
-In this example, lineend rune will  not be applied to and file which matches that rule
+In this example, lineend rune will  not be applied to files which matches that rule (like /foo/static/images/bar.xyz)
 
 ## Disabling pushes to specific branches (Only on pre-receive hook)
 You can disable pushes to specific branches by
