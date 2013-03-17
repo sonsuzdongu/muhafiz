@@ -87,11 +87,16 @@ After this, **'all your commits are belongs to us'**. All your commits will be c
     * config parameters : 
         * 'muhafiz.runners.lineend.allowed' : should be 'unix' or 'windows' 
 
+
+## Setting exclude patterns for runners
+Exclude patterns can be set for each runner with setting a RegExp rule in 'muhafiz.runners.RUNNER_NAME.exclude-path' like
+    $ muhafiz.runners.lineend.exclude-path '/static\/images/'
+In this example, lineend rune will  not be applied to and file which matches that rule
+
 ## Disabling pushes to specific branches (Only on pre-receive hook)
 You can disable pushes to specific branches by
     $ git config muhafiz.disabled-branches "foo bar"
 
 
 ## TODO
-* Define "exclude paths" in git config that runners should not work on
 * verbose options
