@@ -99,7 +99,10 @@ In this example, lineend rune will  not be applied to and file which matches tha
 You can disable pushes to specific branches by
 
     $ git config muhafiz.disabled-branches "foo bar"
-    
+
+## Contributors
+[volkan](https://github.com/volkan) <br />
+[chesterx](https://github.com/chesterx)
 
 
 ## TODO
