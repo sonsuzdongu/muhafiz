@@ -16,12 +16,15 @@
 namespace Muhafiz\Runners;
 
 use Muhafiz\Utils\System as Sys;
+use Muhafiz\Utils\Git as Git;
 
 /**
  * All runners should have 'run()' method for given files array
  */
 abstract class RunnersAbstract
 {
+    private $_excludePattern;
+
     /**
      * If any other tool needed for this runner
      * check availilibility of this by executing $_toolCheckCommand
@@ -45,8 +48,13 @@ abstract class RunnersAbstract
     public function init($files)
     {
         $files = $this->_filterFiles($files);
+        $files = $this->_filterExcludePaths($files);
+
         $this->run($files);
     }
+
+
+
 
 
 
@@ -59,6 +67,22 @@ abstract class RunnersAbstract
         throw new \Muhafiz\Exceptions\RuleFailed($this->_name . " : " . implode("\n", $out['output']));
     }
 
+
+    /**
+     * filter files with exclude path
+     *
+     * @return string
+     */
+    private function _filterExcludePaths($files)
+    {
+        $runnerName = strtolower(end(explode('\\', get_called_class())));
+        $excludePattern = Git::getConfig("muhafiz.runners." . $runnerName .".exclude-pattern", "");
+
+        if ($this->_excludePattern = $excludePattern) {
+            $files = array_filter($files, array($this, "_excludeByRegexp"));
+        }
+        return $files;
+    }
 
 
 
@@ -85,6 +109,18 @@ abstract class RunnersAbstract
     {
         return preg_match($this->_fileFilterRegexp, $input);
     }
+
+
+    /**
+     * callback function for array_filter
+     *
+     * @param mixed $input
+     */
+    private function _excludeByRegexp($input)
+    {
+        return !preg_match($this->_excludePattern, $input);
+    }
+
 
 
 
