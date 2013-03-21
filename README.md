@@ -89,7 +89,7 @@ After this, **'all your commits are belongs to us'**. All your commits will be c
 
 
 ## Setting exclude patterns for runners
-Exclude patterns can be set for each runner with setting a RegExp rule in 'muhafiz.runners.RUNNER_NAME.exclude-path' like
+Exclude patterns can be set for each runner with setting a RegExp rule in 'muhafiz.runners.RUNNER_NAME.exclude-pattern' like
 
     $ git config muhafiz.runners.lineend.exclude-pattern '/static\/images/'
     
