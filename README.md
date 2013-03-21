@@ -101,7 +101,8 @@ You can disable pushes to specific branches by
     $ git config muhafiz.disabled-branches "foo bar"
 
 ## Contributors
-[volkan](https://github.com/volkan) <br />
+[Osman Yüksel](https://github.com/yuxel) <br />
+[Volkan Altan](https://github.com/volkan) <br />
 [chesterx](https://github.com/chesterx)
 
 
