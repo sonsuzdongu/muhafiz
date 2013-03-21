@@ -91,7 +91,7 @@ After this, **'all your commits are belongs to us'**. All your commits will be c
 ## Setting exclude patterns for runners
 Exclude patterns can be set for each runner with setting a RegExp rule in 'muhafiz.runners.RUNNER_NAME.exclude-path' like
 
-    $ muhafiz.runners.lineend.exclude-path '/static\/images/'
+    $ git config muhafiz.runners.lineend.exclude-pattern '/static\/images/'
     
 In this example, lineend rune will  not be applied to files which matches that rule (like /foo/static/images/bar.xyz)
 
