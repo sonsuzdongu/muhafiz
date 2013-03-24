@@ -91,13 +91,21 @@ After this, **'all your commits are belongs to us'**. All your commits will be c
 * **consolefoo** Check js files for console.*() statements
 
 ## Setting exclude patterns for runners
-Exclude patterns can be set for each runner with setting a RegExp rule in 'muhafiz.runners.RUNNER_NAME.exclude-path' like
-    $ muhafiz.runners.lineend.exclude-path '/static\/images/'
-In this example, lineend rune will  not be applied to and file which matches that rule
+Exclude patterns can be set for each runner with setting a RegExp rule in 'muhafiz.runners.RUNNER_NAME.exclude-pattern' like
+
+    $ git config muhafiz.runners.lineend.exclude-pattern '/static\/images/'
+    
+In this example, lineend rune will  not be applied to files which matches that rule (like /foo/static/images/bar.xyz)
 
 ## Disabling pushes to specific branches (Only on pre-receive hook)
 You can disable pushes to specific branches by
+
     $ git config muhafiz.disabled-branches "foo bar"
+
+## Contributors
+[Osman Yüksel](https://github.com/yuxel) <br />
+[Volkan Altan](https://github.com/volkan) <br />
+[chesterx](https://github.com/chesterx)
 
 
 ## TODO
