@@ -87,6 +87,8 @@ After this, **'all your commits are belongs to us'**. All your commits will be c
     * config parameters : 
         * 'muhafiz.runners.lineend.allowed' : should be 'unix' or 'windows' 
 
+* **vardump** Check php/phtml files for var_dump() or print_r() statement
+* **consolefoo** Check js files for console.*() statements
 
 ## Setting exclude patterns for runners
 Exclude patterns can be set for each runner with setting a RegExp rule in 'muhafiz.runners.RUNNER_NAME.exclude-pattern' like
