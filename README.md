@@ -46,23 +46,22 @@ Guard your codebase from bad code!
 ## Installation
 
 You need to copy the required git-hook to your project's .git/hooks directory 
-And put the src directory in somewhere (eg. /usr/share/muhafiz/src)
+And put the src directory in somewhere (eg. ~/muhafiz/src)
 
-    $ sudo mkdir -p /usr/share/muhafiz
-    $ git clone git://github.com/sonsuzdongu/muhafiz.git /usr/share/muhafiz
-    $ cp /usr/share/muhafiz/git-hooks/* /your/project/.git/hooks        
+    $ git clone git://github.com/sonsuzdongu/muhafiz.git ~/muhafiz
+    $ cp ~/muhafiz/git-hooks/* /your/project/.git/hooks        
 
 
 ## Configuration
 
 You have to set your **'muhafiz.bootstrap-file'** git config seting to show your **muhafiz** bootstrap file
 
-    $ git config muhafiz.bootstrap-file /usr/share/muhafiz/src/bootstrap.php
+    $ git config muhafiz.bootstrap-file ~/muhafiz/src/bootstrap.php
 
 Or better you set it sytem wide or global
 
-    $ sudo git config --global muhafiz.bootstrap-file /usr/share/muhafiz/src/bootstrap.php
-    $ sudo git config --system muhafiz.bootstrap-file /usr/share/muhafiz/src/bootstrap.php
+    $ sudo git config --global muhafiz.bootstrap-file ~/muhafiz/src/bootstrap.php
+    $ sudo git config --system muhafiz.bootstrap-file ~/muhafiz/src/bootstrap.php
 
 Then you have to set the comma separated list of code checkers(aka runners) using 'muhafiz.active-runners' git config paramter
  
