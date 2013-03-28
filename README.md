@@ -105,7 +105,8 @@ You can disable pushes to specific branches by
 ## Contributors
 [Osman Yüksel](https://github.com/yuxel) <br />
 [Volkan Altan](https://github.com/volkan) <br />
-[chesterx](https://github.com/chesterx)
+[chesterx](https://github.com/chesterx) <br />
+[Adil İlhan](https://github.com/adililhan)
 
 
 ## TODO
