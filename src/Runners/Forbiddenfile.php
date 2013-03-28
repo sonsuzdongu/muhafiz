@@ -30,7 +30,7 @@ class Forbiddenfile extends RunnersAbstract
 
     function run(array $files)
     {
-        $rule = Git::getConfig("muhafiz.runners.forbiddenfile.rule", "(\.swp|\.swo|\.save|#|~)$");
+        $rule = Git::getConfig("muhafiz.runners.forbiddenfile.pattern", "(\.swp|\.swo|\.save|#|~)$");
 
         foreach ($files as $file) {
             //check, file is forbidden?
