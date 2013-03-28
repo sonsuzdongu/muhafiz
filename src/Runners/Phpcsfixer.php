@@ -16,7 +16,6 @@
 
 namespace Muhafiz\Runners;
 use Muhafiz\Utils\System as Sys;
-use Muhafiz\Utils\Git as Git;
 use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
 
 
@@ -33,10 +32,10 @@ class Phpcsfixer extends RunnersAbstract
     public function run(array $files)
     {
         //get required config params
-        $standard = Git::getConfig("muhafiz.runners.php-cs-fixer.standard", "psr2");        
+        $standard = $this->_vcs->getConfig("muhafiz.runners.php-cs-fixer.standard", "psr2");        
 
         foreach ($files as $file) {
-            $out = Sys::runCommand("php-cs-fixer fix --dry-run --level=${standard} ${file}");
+            $out = Sys::runCommand($this->_vcs->catCommand($file) . " | php-cs-fixer fix --dry-run --level=${standard}");
 
             if (count($out['output']) > 0) {
                 $this->_onRuleFailed($out);

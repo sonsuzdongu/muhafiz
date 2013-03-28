@@ -13,20 +13,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Muhafiz\Vcs;
 
-namespace Muhafiz\Utils;
 use Muhafiz\Utils\System as Sys;
+use Muhafiz\Vcs\VcsAbstract as VcsAbstract;
 
 /**
  * Git helper which supplies a high-level API for git command
  */
-class Git
+class Git extends VcsAbstract
 {
     /**
      * return list of staged files
      * @return array
      */
-    public static function getStagedFiles()
+    public function getStagedFiles()
     {
         return Sys::runCommand("git diff --cached --name-only --diff-filter=ACM");
     }
@@ -36,9 +37,9 @@ class Git
      * return list of new added files
      * @return array
      */
-    public static function getNewFiles()
+    public function getNewFiles()
     {
-        return static::_removeFileFlag(Sys::runCommand("git status --short | grep ^A"));
+        return $this->_removeFileFlag(Sys::runCommand("git status --short | grep ^A"));
     }
 
 
@@ -50,7 +51,7 @@ class Git
      * @param string $secondRev revision after commit
      * @return array list of files
      */
-    public static function getFilesAfterCommit($firstRev, $secondRev)
+    public function getFilesAfterCommit($firstRev, $secondRev)
     {
         $tmpDir = "/tmp/"; //TODO: this should be configurable
 
@@ -87,7 +88,7 @@ class Git
      * @param string|null $defaultValue default value for key, if value not set
      * @return string
      */
-    public static function getConfig($key, $defaultValue = null)
+    public function getConfig($key, $defaultValue = null)
     {
         $result = Sys::runCommand("git config ${key}");
         return isset($result['output'][0]) ? $result['output'][0] : $defaultValue;
@@ -100,10 +101,20 @@ class Git
      * @param string $value value for key
      * @return boolean
      */
-    public static function setConfig($key, $value)
+    public function setConfig($key, $value)
     {
         $result = Sys::runCommand("git config ${key} ${value}");
         return $result['exitCode'] == 0;
+    }
+
+
+    /**
+    * Gets the cmd to print contents of changed file
+    * @param string $file file to print
+    */
+    public function catCommand($file)
+    {
+        return "cat ${file}";
     }
 
 
@@ -112,7 +123,7 @@ class Git
      * @param array $result
      * @return array
      */
-    private static function _removeFileFlag($result)
+    private function _removeFileFlag($result)
     {
         $result['output'] = array_map(
             function ($item) {
