@@ -15,27 +15,29 @@
 
 namespace Muhafiz\Runners;
 use Muhafiz\Utils\System as Sys;
+use Muhafiz\Utils\Git as Git;
 use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
 
 /**
- * Check file for Byte Order Mark
+ * Check file is forbidden
  */
-class Swap extends RunnersAbstract
+class Forbiddenfile extends RunnersAbstract
 {
-    protected $_name = "ChechSwapExtensions";
+    protected $_name = "Swap";
     protected $_toolName = "grep";
     protected $_toolCheckCommand = "which grep";
     protected $_fileFilterRegexp = null; //all files should be checked
 
     function run(array $files)
     {
+        $rule = Git::getConfig("muhafiz.runners.forbiddenfile.rule", "(\.swp|\.swo|\.save|#|~)$");
+
         foreach ($files as $file) {
-            //check, file is swap?
-            //TODO: add other IDE swap extensions
-            $out = Sys::runCommand("ls -d ${file} | grep -iE '(\.swp|\.swo|\.save|#|~)$'");
+            //check, file is forbidden?
+            $out = Sys::runCommand("ls -d ${file} | grep -iE '${rule}'");
 
             if ($out['exitCode'] == 0) {
-                $out['output'][] = "That '${file}' is swap!";
+                $out['output'][] = "That '${file}' is forbidden!";
                 $this->_onRuleFailed($out);
             }
         }
