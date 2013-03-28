@@ -32,7 +32,7 @@ class Bom extends RunnersAbstract
         foreach ($files as $file) {
             //cat file with --show-nonprinting option 
             //and see if it contains BOM
-            $out = Sys::runCommand("cat --show-nonprinting ${file} | grep -iq '^M-oM-;M-?'");
+            $out = Sys::runCommand($this->_vcs->catCommand($file) . " | cat --show-nonprinting | grep -iq '^M-oM-;M-?'");
 
             if ($out['exitCode'] == 0) { // it means we have BOM in this file
                 $this->_onRuleFailed($out);

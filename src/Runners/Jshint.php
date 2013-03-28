@@ -15,7 +15,6 @@
 
 namespace Muhafiz\Runners;
 use Muhafiz\Utils\System as Sys;
-use Muhafiz\Utils\Git as Git;
 use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
 
 
@@ -32,10 +31,10 @@ class Jshint extends RunnersAbstract
     function run(array $files)
     {
         //get required config params
-        $configFile = Git::getConfig("muhafiz.runners.jshint.config", ".jshintrc");
+        $configFile = $this->_vcs->getConfig("muhafiz.runners.jshint.config", ".jshintrc");
 
         foreach ($files as $file) {
-            $out = Sys::runCommand("jshint ${file} --config=${configFile}");
+            $out = Sys::runCommand($this->_vcs->catCommand($file) . " | jshint --config=${configFile}");
 
             if ($out['exitCode'] != 0) {
                 $this->_onRuleFailed($out);
