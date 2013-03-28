@@ -23,7 +23,7 @@ use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
  */
 class Forbiddenfile extends RunnersAbstract
 {
-    protected $_name = "Swap";
+    protected $_name = "Forbiddenfile";
     protected $_toolName = "grep";
     protected $_toolCheckCommand = "which grep";
     protected $_fileFilterRegexp = null; //all files should be checked
