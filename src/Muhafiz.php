@@ -85,7 +85,7 @@ class Muhafiz
      */
     public function run($files)
     {
-    	$activeRunnersList = "php, phpcs, jshint, lineend, bom, forbiddenfile";
+        $activeRunnersList = "php, phpcs, jshint, lineend, bom, forbiddenfile";
         $activeRunnersConfig = Git::getConfig("muhafiz.active-runners", $activeRunnersList);
         $activeRunners = explode(",", $activeRunnersConfig);
 
