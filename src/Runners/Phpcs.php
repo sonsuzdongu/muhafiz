@@ -16,7 +16,6 @@
 
 namespace Muhafiz\Runners;
 use Muhafiz\Utils\System as Sys;
-use Muhafiz\Utils\Git as Git;
 use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
 
 
@@ -33,11 +32,14 @@ class Phpcs extends RunnersAbstract
     function run(array $files)
     {
         //get required config params
-        $standard = Git::getConfig("muhafiz.runners.phpcs.standard", "PEAR");
-        $report = Git::getConfig("muhafiz.runners.phpcs.report", "emacs");
+        $standard = $this->_vcs->getConfig("muhafiz.runners.phpcs.standard", "PEAR");
+        $report = $this->_vcs->getConfig("muhafiz.runners.phpcs.report", "emacs");
 
         foreach ($files as $file) {
-            $out = Sys::runCommand("phpcs ${file} --standard=${standard} --report=${report}");
+            $out = Sys::runCommand(
+                $this->_vcs->catCommand($file) .
+                " | phpcs --standard=${standard} --report=${report}"
+            );
 
             if ($out['exitCode'] != 0) {
                 $this->_onRuleFailed($out);

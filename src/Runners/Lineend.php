@@ -15,7 +15,6 @@
 
 namespace Muhafiz\Runners;
 use Muhafiz\Utils\System as Sys;
-use Muhafiz\Utils\Git as Git;
 use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
 
 /**
@@ -33,10 +32,13 @@ class Lineend extends RunnersAbstract
 
         //get required config params
         //TODO: check for valid parameters
-        $allowedLineEnd = Git::getConfig("muhafiz.runners.lineend.allowed", "unix");
+        $allowedLineEnd = $this->_vcs->getConfig("muhafiz.runners.lineend.allowed", "unix");
 
         foreach ($files as $file) {
-            $out = Sys::runCommand("echo `cat -e ${file} | wc -l`,`cat -e ${file} | grep '\^M\$$' | wc -l`");
+            $cmd = $this->_vcs->catCommand($file);
+            $out = Sys::runCommand(
+                "echo `" . $cmd . " | cat -e | wc -l`,`" . $cmd . " | cat -e | grep '\^M\$$' | wc -l`"
+            );
             list($total, $windows) = explode(",", $out['output'][0]);
 
             $unix = $total - $windows;

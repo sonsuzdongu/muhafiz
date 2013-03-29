@@ -14,20 +14,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+$GLOBALS['repository'] = $argv[1];
+$GLOBALS['txn'] = $argv[2];
+
 /**
- * git pre-commit hook which will run given tests using Muhafiz
- */ 
-$configParam = "muhafiz.bootstrap-file"; 
-exec("git config ${configParam}", $output, $exitCode);
+ * svn pre-commit hook which will run given tests using Muhafiz
+ */
+$configFile = $GLOBALS['repository'] . '/conf/muhafiz.conf';
 
-$bootstrapFile = current($output);
-
-if ($exitCode != 0 || !file_exists("$bootstrapFile")) {
-    echo("Bootstrap path not set properly. Cannot continue! Check your '$ git config ${configParam}'\n");
+if (!file_exists($configFile) || ($GLOBALS['svnconfig'] = parse_ini_file($configFile, true)) === false) {
+    error_log("Bootstrap path not set properly. Cannot continue! Check your ${configFile}\n");
     exit(1);
 }
 
+$bootstrapFile = $GLOBALS['svnconfig']['muhafiz']['bootstrap-file'];
+
 $GLOBALS['dir'] = realpath(__DIR__ ."/../../");
-$GLOBALS['vcs'] = 'git';
+$GLOBALS['vcs'] = 'subversion';
 $GLOBALS['hookType'] = "pre-commit";
 include_once($bootstrapFile);
+

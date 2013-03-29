@@ -14,7 +14,7 @@
 // limitations under the License.
 
 /**
- * Boostrap file used by git hook scripts
+ * Boostrap file used by vcs hook scripts
  * returns;
  *  0 on success
  *  1 on rule failed
@@ -31,32 +31,32 @@ try {
     $muhafiz->init($GLOBALS);
     exit(0);
 }
-catch(\Muhafiz\Exceptions\ToolNotFound $e) 
+catch(\Muhafiz\Exceptions\NotImplemented $e)
 {
-    echo "FATAL!!!\n";
-    echo $e->getMessage() . "\n";
+    error_log("FATAL!!!");
+    error_log($e->getMessage());
     exit(1);
 }
-catch(\Muhafiz\Exceptions\ToolNotFound $e) 
+catch(\Muhafiz\Exceptions\ToolNotFound $e)
 {
-    echo "FATAL!!!\n";
-    echo $e->getMessage() . "\n";
+    error_log("FATAL!!!");
+    error_log($e->getMessage());
     exit(1);
 }
-catch(\Muhafiz\Exceptions\RuleFailed $e) 
+catch(\Muhafiz\Exceptions\RuleFailed $e)
 {
-    echo "Cannot continue commit, please fix these\n\n";
-    echo $e->getMessage() . "\n";
+    error_log("Cannot continue commit, please fix these\n");
+    error_log($e->getMessage());
 
-    if ($GLOBALS['hookType'] == "pre-commit") {
-        echo "-----\nYou can bypass this check with 'git commit -n', or you can remove this runner\n-----\n";
+    if ($GLOBALS['vcs'] == "git" && $GLOBALS['hookType'] == "pre-commit") {
+        error_log("-----\nYou can bypass this check with 'git commit -n', or you can remove this runner\n-----");
     }
 
     exit(1);
 }
-catch(\Exception $e) 
+catch(\Exception $e)
 {
-    echo "Something went wrong\n\n";
-    echo $e->getMessage() . "\n";
+    error_log("Something went wrong\n");
+    error_log($e->getMessage());
     exit(255);
 }

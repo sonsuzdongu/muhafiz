@@ -16,35 +16,47 @@
 
 namespace Muhafiz;
 use Muhafiz\Utils\System as Sys;
-use Muhafiz\Utils\Git as Git;
+use Muhafiz\Vcs\Git as Git;
+use Muhafiz\Vcs\Subversion as Subversion;
 use Muhafiz\Runners as Runners;
 
 
 /**
  * Muhafiz, code guard!
  *
- * Check codebase for given coding standards 
- * and prevent git commits if necessary 
- */ 
+ * Check codebase for given coding standards
+ * and prevent vcs commits if necessary
+ */
 class Muhafiz
 {
+    private $_vcs;
+
     /**
      * Init Muhafiz and run required methods by required parameters
-     * @param array $configParams $GLOBALS passed from git hooks
+     * @param array $configParams $GLOBALS passed from vcs hooks
      */
     public function init($configParams)
     {
+        switch ($configParams['vcs']) {
+            case 'subversion':
+                $this->_vcs = new Subversion($configParams);
+                break;
+            case 'git':
+                $this->_vcs = new Git($configParams);
+                break;
+        }
+
         if ($configParams['hookType'] == "pre-commit") {
 
-            chdir($configParams['dir']); //change current directory to git repository
-            $stagedFiles = Git::getStagedFiles();
+            chdir($configParams['dir']); //change current directory to vcs repository
+            $stagedFiles = $this->_vcs->getStagedFiles();
             $files = $stagedFiles['output'];
             $this->run($files);
 
         } elseif ($configParams['hookType'] == "pre-receive") {
             try {
                 $this->_checkIfPushDisabled($configParams['ref']);
-                $files = Git::getFilesAfterCommit($configParams['rev1'], $configParams['rev2']);
+                $files = $this->_vcs->getFilesAfterCommit($configParams['rev1'], $configParams['rev2']);
                 $this->run($files);
             }
             catch(Exception $e){
@@ -62,12 +74,12 @@ class Muhafiz
     /**
      * Check if pushing to branch is disabled
      *
-     * @param string $ref git ref name
+     * @param string $ref vcs ref name
      */
     private function _checkIfPushDisabled($ref)
     {
         $branchName = str_replace("refs/heads/", "", $ref);
-        if ($config = Git::getConfig("muhafiz.disabled-branches", "")) {
+        if ($config = $this->_vcs->getConfig("muhafiz.disabled-branches", "")) {
             $branches = array_map("trim", explode(" ", $config));
             foreach ($branches as $branch) {
                 if ($branch == $branchName) {
@@ -79,14 +91,14 @@ class Muhafiz
 
 
     /**
-     * check code by runners specified in 'muhafiz.active-runners' git config
+     * check code by runners specified in 'muhafiz.active-runners' vcs config
      *
      * @param array $files list of files to be checked
      */
     public function run($files)
     {
         $activeRunnersList = "php, phpcs, jshint, lineend, bom, forbiddenfile";
-        $activeRunnersConfig = Git::getConfig("muhafiz.active-runners", $activeRunnersList);
+        $activeRunnersConfig = $this->_vcs->getConfig("muhafiz.active-runners", $activeRunnersList);
         $activeRunners = explode(",", $activeRunnersConfig);
 
         foreach ($activeRunners as $activeRunner) {
@@ -94,7 +106,7 @@ class Muhafiz
             $className = "Muhafiz\\Runners\\" . ucfirst($activeRunner);
 
             if (class_exists($className) && is_subclass_of($className, "\\Muhafiz\\Runners\\RunnersAbstract")) {
-                $runner = new $className();
+                $runner = new $className($this->_vcs);
                 echo "running $activeRunner ... ";
                 $runner->init($files);
                 echo "DONE \n";

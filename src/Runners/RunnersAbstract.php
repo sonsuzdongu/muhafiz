@@ -16,7 +16,6 @@
 namespace Muhafiz\Runners;
 
 use Muhafiz\Utils\System as Sys;
-use Muhafiz\Utils\Git as Git;
 
 /**
  * All runners should have 'run()' method for given files array
@@ -24,13 +23,16 @@ use Muhafiz\Utils\Git as Git;
 abstract class RunnersAbstract
 {
     private $_excludePattern;
+    protected $_vcs;
 
     /**
      * If any other tool needed for this runner
      * check availilibility of this by executing $_toolCheckCommand
      */
-    public final function __construct()
+    public final function __construct($vcs)
     {
+        $this->_vcs = $vcs;
+
         if ($this->_toolCheckCommand) {
             $cmdOut = Sys::runCommand($this->_toolCheckCommand);
             if ($cmdOut['exitCode'] != 0) {
@@ -75,8 +77,9 @@ abstract class RunnersAbstract
      */
     private function _filterExcludePaths($files)
     {
-        $runnerName = strtolower(end(explode('\\', get_called_class())));
-        $excludePattern = Git::getConfig("muhafiz.runners." . $runnerName .".exclude-pattern", "");
+        $className = explode('\\', get_called_class());
+        $runnerName = strtolower(end($className));
+        $excludePattern = $this->_vcs->getConfig("muhafiz.runners." . $runnerName .".exclude-pattern", "");
 
         if ($this->_excludePattern = $excludePattern) {
             $files = array_filter($files, array($this, "_excludeByRegexp"));
