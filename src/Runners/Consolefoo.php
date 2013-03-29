@@ -33,7 +33,10 @@ class Consolefoo extends RunnersAbstract
         foreach ($files as $file) {
             //check if files have console.*() statements
             //but dont check files which are commented with //
-            $out = Sys::runCommand($this->_vcs->catCommand($file) . " | grep -vE '^\s*\/\/' | grep -iqE 'console\.[a-zA-Z]{1,20}\s*\(' 2>&1");
+            $out = Sys::runCommand(
+                $this->_vcs->catCommand($file) .
+                " | grep -vE '^\s*\/\/' | grep -iqE 'console\.[a-zA-Z]{1,20}\s*\(' 2>&1"
+            );
 
             if ($out['exitCode'] == 0) {
                 $out['output'][] = "'${file}' file contains console.*() statement";

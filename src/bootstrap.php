@@ -31,19 +31,19 @@ try {
     $muhafiz->init($GLOBALS);
     exit(0);
 }
-catch(\Muhafiz\Exceptions\ToolNotFound $e) 
+catch(\Muhafiz\Exceptions\NotImplemented $e)
 {
     error_log("FATAL!!!");
     error_log($e->getMessage());
     exit(1);
 }
-catch(\Muhafiz\Exceptions\ToolNotFound $e) 
+catch(\Muhafiz\Exceptions\ToolNotFound $e)
 {
     error_log("FATAL!!!");
     error_log($e->getMessage());
     exit(1);
 }
-catch(\Muhafiz\Exceptions\RuleFailed $e) 
+catch(\Muhafiz\Exceptions\RuleFailed $e)
 {
     error_log("Cannot continue commit, please fix these\n");
     error_log($e->getMessage());
@@ -54,7 +54,7 @@ catch(\Muhafiz\Exceptions\RuleFailed $e)
 
     exit(1);
 }
-catch(\Exception $e) 
+catch(\Exception $e)
 {
     error_log("Something went wrong\n");
     error_log($e->getMessage());

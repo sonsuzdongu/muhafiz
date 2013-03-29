@@ -26,7 +26,8 @@ abstract class VcsAbstract
      * constructs the object
      * @param array $configParams configuration parameters
      */
-    public function __construct($configParams) {
+    public function __construct($configParams)
+    {
         $this->_config = $configParams;
     }
 
@@ -72,10 +73,17 @@ abstract class VcsAbstract
      */
     public abstract function setConfig($key, $value);
 
-    
+
     /**
     * Gets the cmd to print contents of changed file
     * @param string $file file to print
     */
     public abstract function catCommand($file);
+
+
+    /**
+     * Determines the vcs uses stdout or not
+     * @return bool true if vcs uses stdout
+     */
+    public abstract function usesStdout();
 }

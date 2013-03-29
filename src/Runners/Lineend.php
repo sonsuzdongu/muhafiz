@@ -36,7 +36,9 @@ class Lineend extends RunnersAbstract
 
         foreach ($files as $file) {
             $cmd = $this->_vcs->catCommand($file);
-            $out = Sys::runCommand("echo `" . $cmd . " | cat -e | wc -l`,`" . $cmd . " | cat -e | grep '\^M\$$' | wc -l`");
+            $out = Sys::runCommand(
+                "echo `" . $cmd . " | cat -e | wc -l`,`" . $cmd . " | cat -e | grep '\^M\$$' | wc -l`"
+            );
             list($total, $windows) = explode(",", $out['output'][0]);
 
             $unix = $total - $windows;

@@ -31,11 +31,24 @@ class Phpcsfixer extends RunnersAbstract
 
     public function run(array $files)
     {
+        if ($this->_vcs->usesStdout()) {
+            $out = array(
+                'exitcode' => -1,
+                'output' => array("php-cs-fixer runner is not compatible with the vcs currently running.")
+            );
+
+            $this->_onRuleFailed($out);
+            return;
+        }
+
         //get required config params
-        $standard = $this->_vcs->getConfig("muhafiz.runners.php-cs-fixer.standard", "psr2");        
+        $standard = $this->_vcs->getConfig("muhafiz.runners.php-cs-fixer.standard", "psr2");
 
         foreach ($files as $file) {
-            $out = Sys::runCommand($this->_vcs->catCommand($file) . " | php-cs-fixer fix --dry-run --level=${standard}");
+            $out = Sys::runCommand(
+                $this->_vcs->catCommand($file) .
+                " | php-cs-fixer fix --dry-run --level=${standard}"
+            );
 
             if (count($out['output']) > 0) {
                 $this->_onRuleFailed($out);

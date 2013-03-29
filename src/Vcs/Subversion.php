@@ -16,6 +16,7 @@
 namespace Muhafiz\Vcs;
 
 use Muhafiz\Utils\System as Sys;
+use Muhafiz\Utils\Misc as Misc;
 use Muhafiz\Vcs\VcsAbstract as VcsAbstract;
 
 /**
@@ -32,11 +33,12 @@ class Subversion extends VcsAbstract
      * @param string $repository working repository
      * @param string $txn transaction id
      */
-    public function __construct($configParams, $repository, $txn) {
+    public function __construct($configParams)
+    {
         parent::__construct($configParams);
 
-        $this->_repository = $repository;
-        $this->_txn = $txn;
+        $this->_repository = $configParams['repository'];
+        $this->_txn = $configParams['txn'];
     }
 
 
@@ -46,7 +48,9 @@ class Subversion extends VcsAbstract
      */
     public function getStagedFiles()
     {
-        return Sys::runCommand("svnlook changed -t {$this->_txn} {$this->_repository} | grep '^[U|A]' | awk '{print $2}'");
+        return Sys::runCommand(
+            "svnlook changed -t {$this->_txn} {$this->_repository} | grep '^[U|A]' | awk '{print $2}'"
+        );
     }
 
 
@@ -82,14 +86,7 @@ class Subversion extends VcsAbstract
      */
     public function getConfig($key, $defaultValue = null)
     {
-        $sections = explode('.', $key, 2);
-        
-        $config = $this->_config['svnconfig'];
-        if (!isset($config[$sections[0]]) || !isset($config[$sections[0]][$sections[1]])) {
-            return $defaultValue;
-        }
-
-        return $config[$sections[0]][$sections[1]];
+        return Misc::readIniValue($this->_config['svnconfig'], $key, $defaultValue);
     }
 
 
@@ -101,18 +98,31 @@ class Subversion extends VcsAbstract
      */
     public function setConfig($key, $value)
     {
-        // $result = Sys::runCommand("svnlook propset -t {$this->_txn} {$this->_repository} ${key} ${value} /");
+        // $result = Sys::runCommand(
+        //      "svnlook propset -t {$this->_txn} {$this->_repository} ${key} ${value} /"
+        // );
         // return $result['exitCode'] == 0;
         throw new Exceptions\NotImplemented("setConfig() method is not defined for subversion!");
     }
 
 
     /**
-    * Gets the cmd to print contents of changed file
-    * @param string $file file to print
-    */
+     * Gets the cmd to print contents of changed file
+     * @param string $file file to print
+     * @return string cat cmd
+     */
     public function catCommand($file)
     {
         return "svnlook cat -t {$this->_txn} {$this->_repository} ${file}";
+    }
+
+
+    /**
+     * Determines the vcs uses stdout or not
+     * @return bool true if vcs uses stdout
+     */
+    public function usesStdout()
+    {
+        return true;
     }
 }

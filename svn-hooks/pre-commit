@@ -14,10 +14,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+$GLOBALS['repository'] = $argv[1];
+$GLOBALS['txn'] = $argv[2];
+
 /**
  * svn pre-commit hook which will run given tests using Muhafiz
  */
-$configFile = $argv[1] . '/conf/muhafiz.conf';
+$configFile = $GLOBALS['repository'] . '/conf/muhafiz.conf';
 
 if (!file_exists($configFile) || ($GLOBALS['svnconfig'] = parse_ini_file($configFile, true)) === false) {
     error_log("Bootstrap path not set properly. Cannot continue! Check your ${configFile}\n");

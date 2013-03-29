@@ -36,7 +36,10 @@ class Phpcs extends RunnersAbstract
         $report = $this->_vcs->getConfig("muhafiz.runners.phpcs.report", "emacs");
 
         foreach ($files as $file) {
-            $out = Sys::runCommand($this->_vcs->catCommand($file) . " | phpcs --standard=${standard} --report=${report}");
+            $out = Sys::runCommand(
+                $this->_vcs->catCommand($file) .
+                " | phpcs --standard=${standard} --report=${report}"
+            );
 
             if ($out['exitCode'] != 0) {
                 $this->_onRuleFailed($out);

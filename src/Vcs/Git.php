@@ -68,11 +68,11 @@ class Git extends VcsAbstract
             $tree = preg_split('/\s/', $tree['output'][0]);
 
             $tmpFile = $tmpDir . uniqid("muhafiz_") . "/" . $file;
-            
+
             $path = pathinfo($tmpFile);
-            
+
             Sys::runCommand("mkdir -p ".$path['dirname']); // subdirectory files needs directory hierarchy
-            
+
             Sys::runCommand("git cat-file $tree[1] $tree[2] > ${tmpFile} 2> /dev/null");
 
             $files[] = $tmpFile;
@@ -109,9 +109,10 @@ class Git extends VcsAbstract
 
 
     /**
-    * Gets the cmd to print contents of changed file
-    * @param string $file file to print
-    */
+     * Gets the cmd to print contents of changed file
+     * @param string $file file to print
+     * @return string cat cmd
+     */
     public function catCommand($file)
     {
         return "cat ${file}";
@@ -132,5 +133,15 @@ class Git extends VcsAbstract
         );
 
         return $result;
+    }
+
+
+    /**
+     * Determines the vcs uses stdout or not
+     * @return bool true if vcs uses stdout
+     */
+    public function usesStdout()
+    {
+        return false;
     }
 }

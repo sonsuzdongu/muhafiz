@@ -39,10 +39,7 @@ class Muhafiz
     {
         switch ($configParams['vcs']) {
             case 'subversion':
-                $repository = $_SERVER['argv'][1];
-                $txn = $_SERVER['argv'][2];
-
-                $this->_vcs = new Subversion($configParams, $repository, $txn);
+                $this->_vcs = new Subversion($configParams);
                 break;
             case 'git':
                 $this->_vcs = new Git($configParams);
