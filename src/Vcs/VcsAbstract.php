@@ -75,9 +75,9 @@ abstract class VcsAbstract
 
 
     /**
-    * Gets the cmd to print contents of changed file
-    * @param string $file file to print
-    */
+     * Gets the cmd to print contents of changed file
+     * @param string $file file to print
+     */
     public abstract function catCommand($file);
 
 
