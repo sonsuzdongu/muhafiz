@@ -16,7 +16,6 @@
 
 namespace Muhafiz\Runners;
 use Muhafiz\Utils\System as Sys;
-use Muhafiz\Utils\Git as Git;
 use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
 
 /**
@@ -33,7 +32,7 @@ class Php extends RunnersAbstract
     {
         foreach ($files as $file) {
             //force php to display_errors and run php linter, also redirect stderr to stdout
-            $out = Sys::runCommand("php -l ${file} -d display_errors=1 2>&1");
+            $out = Sys::runCommand($this->_vcs->catCommand($file) . " | php -l -d display_errors=1 2>&1");
 
             if ($out['exitCode'] != 0) {
                 $this->_onRuleFailed($out);

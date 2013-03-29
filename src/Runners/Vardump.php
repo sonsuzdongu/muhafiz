@@ -16,7 +16,6 @@
 
 namespace Muhafiz\Runners;
 use Muhafiz\Utils\System as Sys;
-use Muhafiz\Utils\Git as Git;
 use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
 
 /**
@@ -34,7 +33,10 @@ class Vardump extends RunnersAbstract
         foreach ($files as $file) {
             //check if files have var_dump or print_r statement
             //but dont check files which are commented with //
-            $out = Sys::runCommand("grep -vE '^\s*\/\/' ${file} | grep -iqE 'var_dump|print_r' 2>&1");
+            $out = Sys::runCommand(
+                $this->_vcs->catCommand($file) .
+                " | grep -vE '^\s*\/\/' | grep -iqE 'var_dump|print_r' 2>&1"
+            );
 
             if ($out['exitCode'] == 0) {
                 $out['output'][] = "'${file}' file contains var_dump or print_r statement";
