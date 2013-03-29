@@ -20,11 +20,11 @@ use Muhafiz\Utils\Git as Git;
 use Muhafiz\Runners\RunnersAbstract as RunnersAbstract;
 
 /**
- * Check if php files contains var_dump or print_r or var_export statement
+ * Check if php files contains var_dump or print_r statement
  */
 class Vardump extends RunnersAbstract
 {
-    protected $_name = "var_dump/print_r/var_export";
+    protected $_name = "var_dump/print_r";
     protected $_toolName = "grep";
     protected $_toolCheckCommand = "which grep";
     protected $_fileFilterRegexp = "/\.ph(p|tml)$/"; //php and phtml files should be checked
@@ -32,12 +32,12 @@ class Vardump extends RunnersAbstract
     function run(array $files)
     {
         foreach ($files as $file) {
-            //check if files have var_dump or print_r or var_export statement
+            //check if files have var_dump or print_r statement
             //but dont check files which are commented with //
-            $out = Sys::runCommand("grep -vE '^\s*\/\/' ${file} | grep -iqE 'var_dump|print_r|var_export' 2>&1");
+            $out = Sys::runCommand("grep -vE '^\s*\/\/' ${file} | grep -iqE 'var_dump|print_r' 2>&1");
 
             if ($out['exitCode'] == 0) {
-                $out['output'][] = "'${file}' file contains var_dump or print_r or var_export statement";
+                $out['output'][] = "'${file}' file contains var_dump or print_r statement";
                 $this->_onRuleFailed($out);
             }
         }
