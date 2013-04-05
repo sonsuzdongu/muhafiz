@@ -48,73 +48,101 @@
       <section id="main_content">
         <h1>muhafiz</h1>
 
+<p>Master: <a href="http://travis-ci.org/sonsuzdongu/muhafiz"><img src="https://secure.travis-ci.org/sonsuzdongu/muhafiz.png?branch=master" alt="Build Status"></a></p>
+
 <p>Guard your codebase from bad code!</p>
 
-<pre><code>                         ...',,,,,',:                                   
-                        ,,.',okxc,,,Oc                                  
-                       .,.',;0OOx,,,;K'                                 
-                       :.',,;XoxK,,,,cK.                                
-                      ';.',,,l00d,,,,,oO                                
-                      c''',,,oWWo,,,,,,O:                               
-                     ,:.',,,,;NX,,,,,,,:0                               
-                     ,;.',,,,,K0,,,,,,,,k;                              
-                     ;,',,,,:OMWx;,,,,,,l.                              
-                    .odxxox0NNWNNXkooxOXW.                              
-                     okKWNNX0NNXKkNNWWWWN.                              
-                     'dOWNWNKNWNX0MXNWWWo                               
-                      ,oONWX0KWN0OKNWWNo.                               
-                    ....;c;...cl',',lo;'...                             
-                  .......';odOKXNKc'..'',,,'.                           
-                 ...;ldxlxWWWWWWWWXW0doc;,,,,.                          
-                .'oKNWWWWN0kOKXXX00NWNWWN0xc,,.                         
-               'xNWWWWWN0o'..,:c,'',kNWWWWWWKo,                         
-              ,XWWNX0Odc,',oxxxxc.,,':xXNNNWWWK;                        
-             .0WXOdl:,..''ldolodx;',,,,;lkKXXNWN.                       
-            .:xxc;'.  ..,'ldddooxc',,,,,,,.',:;:                        
-               ....  ...,,,oxxxOd,,,,,,,,,....                          
-                 ... ..',,,'lokd,,,,,,,,,,...                           
-                   .....,,,'oxKd,,,,,,,,,..                             
-                     ...,,,'o0Wd,,,,;;:c:                               
-                     :oxdxxcoNWkxkkkO0KKx                               
-                     .';;;;,OXW0...,,,,,'                               
-                   ...',,,'lKKW0...,,,,,,.                              
-                   ..',,,,.dWO0k,..,,,,,,,                              
-                  ..',,,,,.cNdOk:..,,,,,,,'                             
-                 ..',,,,,,..Ookkc..',,,,,,,                             
-                 '.,,,,,,'. lkdx:...,,,,,,,.                            
-                 ..,,,,,'.. 'xox....',,,,,,.                            
-                 ..,,,,,..   :o:'  ...,,,,,'                            
-                 ..,,,,.      c..     .,,,,.                            
-                 .......      ..      ....... 
+<pre><code>                         ...',,,,,',:
+                        ,,.',okxc,,,Oc
+                       .,.',;0OOx,,,;K'
+                       :.',,;XoxK,,,,cK.
+                      ';.',,,l00d,,,,,oO
+                      c''',,,oWWo,,,,,,O:
+                     ,:.',,,,;NX,,,,,,,:0
+                     ,;.',,,,,K0,,,,,,,,k;
+                     ;,',,,,:OMWx;,,,,,,l.
+                    .odxxox0NNWNNXkooxOXW.
+                     okKWNNX0NNXKkNNWWWWN.
+                     'dOWNWNKNWNX0MXNWWWo
+                      ,oONWX0KWN0OKNWWNo.
+                    ....;c;...cl',',lo;'...
+                  .......';odOKXNKc'..'',,,'.
+                 ...;ldxlxWWWWWWWWXW0doc;,,,,.
+                .'oKNWWWWN0kOKXXX00NWNWWN0xc,,.
+               'xNWWWWWN0o'..,:c,'',kNWWWWWWKo,
+              ,XWWNX0Odc,',oxxxxc.,,':xXNNNWWWK;
+             .0WXOdl:,..''ldolodx;',,,,;lkKXXNWN.
+            .:xxc;'.  ..,'ldddooxc',,,,,,,.',:;:
+               ....  ...,,,oxxxOd,,,,,,,,,....
+                 ... ..',,,'lokd,,,,,,,,,,...
+                   .....,,,'oxKd,,,,,,,,,..
+                     ...,,,'o0Wd,,,,;;:c:
+                     :oxdxxcoNWkxkkkO0KKx
+                     .';;;;,OXW0...,,,,,'
+                   ...',,,'lKKW0...,,,,,,.
+                   ..',,,,.dWO0k,..,,,,,,,
+                  ..',,,,,.cNdOk:..,,,,,,,'
+                 ..',,,,,,..Ookkc..',,,,,,,
+                 '.,,,,,,'. lkdx:...,,,,,,,.
+                 ..,,,,,'.. 'xox....',,,,,,.
+                 ..,,,,,..   :o:'  ...,,,,,'
+                 ..,,,,.      c..     .,,,,.
+                 .......      ..      .......
 </code></pre>
 
-<h2>Installation</h2>
+<h2>Git</h2>
 
-<p>You need to copy the required git-hook to your project's .git/hooks directory 
-And put the src directory in somewhere (eg. /usr/share/muhafiz/src)</p>
+<h3>Installation</h3>
 
-<pre><code>$ cp git-hooks/ANY-HOOOK /your/project/git-hooks
-$ sudo mkdir /usr/share/muhafiz
-$ sudo cp -r src /usr/share/muhafiz
+<p>You need to copy the required git-hook to your project's .git/hooks directory
+And put the src directory in somewhere (eg. ~/muhafiz/src)</p>
+
+<pre><code>$ git clone git://github.com/sonsuzdongu/muhafiz.git ~/muhafiz
+$ cp ~/muhafiz/git-hooks/* /your/project/.git/hooks
 </code></pre>
 
-<h2>Configuration</h2>
+<h3>Configuration</h3>
 
-<p>You have to set your <strong>'muhafiz.bootstrap-file'</strong> git config seting to show your <strong>muhafiz</strong> bootstrap file</p>
+<p>You have to set your <strong>'muhafiz.bootstrap-file'</strong> git config setting to show your <strong>muhafiz</strong> bootstrap file</p>
 
-<pre><code>$ git config muhafiz.bootstrap-file /usr/share/muhafiz/src/bootstrap.php
+<pre><code>$ git config muhafiz.bootstrap-file ~/muhafiz/src/bootstrap.php
 </code></pre>
 
-<p>Or better you set it sytem wide or global</p>
+<p>Or better you set it system wide or global</p>
 
-<pre><code>$ sudo git config --global muhafiz.bootstrap-file /usr/share/muhafiz/src/bootstrap.php
-$ sudo git config --system muhafiz.bootstrap-file /usr/share/muhafiz/src/bootstrap.php
+<pre><code>$ sudo git config --global muhafiz.bootstrap-file ~/muhafiz/src/bootstrap.php
+$ sudo git config --system muhafiz.bootstrap-file ~/muhafiz/src/bootstrap.php
 </code></pre>
 
-<p>Then you have to set the comma separated list of code checkers(aka runners) using 'muhafiz.active-runners' git config paramter</p>
+<p>Then you have to set the comma separated list of code checkers(aka runners) using 'muhafiz.active-runners' git config parameter</p>
 
 <pre><code>$ git config muhafiz.active-runners 'phpcs, jshint'
 </code></pre>
+
+<p>After this, <strong>'all your commits are belongs to us'</strong>. All your commits will be checked by given runners and commit will be prevented if are there any errors</p>
+
+<h2>Subversion</h2>
+
+<h3>Installation</h3>
+
+<p>You need to copy the required svn-hook to your repository's hooks directory
+And put the src directory in somewhere (eg. ~/muhafiz/src)</p>
+
+<pre><code>$ git clone git://github.com/sonsuzdongu/muhafiz.git ~/muhafiz
+$ cp ~/muhafiz/svn-hooks/pre-commit /home/svn/your_project/hooks/
+$ cp ~/muhafiz/svn-hooks/muhafiz.conf /home/svn/your_project/conf/
+</code></pre>
+
+<h3>Configuration</h3>
+
+<p>You have to edit your <strong>'muhafiz.conf'</strong> file to locate bootstrap file and configure runners:</p>
+
+<pre><code>[muhafiz]
+bootstrap-file=~/muhafiz/src/bootstrap.php
+active-runners='php, bom'
+</code></pre>
+
+<p>List of code checkers(aka runners) must be separated by commas.</p>
 
 <p>After this, <strong>'all your commits are belongs to us'</strong>. All your commits will be checked by given runners and commit will be prevented if are there any errors</p>
 
@@ -129,7 +157,7 @@ $ sudo git config --system muhafiz.bootstrap-file /usr/share/muhafiz/src/bootstr
 <strong>phpcs</strong> (<a href="http://pear.php.net/package/PHP_CodeSniffer/redirected">PhpCodeSniffer</a>)
 
 <ul>
-<li>config parameters : 
+<li>config parameters :
 
 <ul>
 <li>'muhafiz.runners.phpcs.standard' : set coding standard (see <a href="http://pear.php.net/manual/en/package.php.php-codesniffer.config-options.php">reference doc</a>) | defaults to "PEAR"</li>
@@ -142,7 +170,7 @@ $ sudo git config --system muhafiz.bootstrap-file /usr/share/muhafiz/src/bootstr
 <strong>php-cs-fixer</strong> (<a href="http://cs.sensiolabs.org/">Php CS Fixer</a>)
 
 <ul>
-<li>config parameters : 
+<li>config parameters :
 
 <ul>
 <li>'muhafiz.runners.php-cs-fixer.standard' : set coding standard (see <a href="http://cs.sensiolabs.org/">reference doc</a>) | defaults to "psr2"</li>
@@ -154,7 +182,7 @@ $ sudo git config --system muhafiz.bootstrap-file /usr/share/muhafiz/src/bootstr
 <strong>jshint</strong> (<a href="http://www.jshint.com/platforms/">JSHint Node.js Command Line Tool</a>)
 
 <ul>
-<li>config parameters : 
+<li>config parameters :
 
 <ul>
 <li>'muhafiz.runners.jshint.config' : jshint config file (see <a href="http://www.jshint.com/docs/">reference doc</a>) | defaults to ".jshintrc"</li>
@@ -163,23 +191,59 @@ $ sudo git config --system muhafiz.bootstrap-file /usr/share/muhafiz/src/bootstr
 </ul>
 </li>
 <li>
-<strong>lineend</strong> Check files' line endings
+<p><strong>lineend</strong> Check files' line endings</p>
 
 <ul>
-<li>config parameters : 
+<li>config parameters :
 
 <ul>
-<li>'muhafiz.runners.lineend.allowed' : should be 'unix' or 'windows' </li>
+<li>'muhafiz.runners.lineend.allowed' : should be 'unix' or 'windows'</li>
 </ul>
 </li>
 </ul>
 </li>
-</ul><h2>TODO</h2>
+<li><p><strong>vardump</strong> Check php/phtml files for var_dump() or print_r() statement</p></li>
+<li><p><strong>consolefoo</strong> Check js files for console.*() statements</p></li>
+</ul><h2>Setting exclude patterns for runners</h2>
+
+<p>Exclude patterns can be set for each runner with setting a RegExp rule in 'muhafiz.runners.RUNNER_NAME.exclude-pattern' like</p>
+
+<p>Git:</p>
+
+<pre><code>$ git config muhafiz.runners.lineend.exclude-pattern '/static\/images/'
+</code></pre>
+
+<p>Subversion:</p>
+
+<pre><code>[muhafiz]
+runners.lineend.exclude-pattern='/static\/images/'
+</code></pre>
+
+<p>In this example, lineend rune will  not be applied to files which matches that rule (like /foo/static/images/bar.xyz)</p>
+
+<h2>Disabling pushes to specific branches (Only on pre-receive hook)</h2>
+
+<p>You can disable pushes to specific branches by</p>
+
+<p>Git:</p>
+
+<pre><code>$ git config muhafiz.disabled-branches "foo bar"
+</code></pre>
+
+<p>Subversion:</p>
+
+<pre><code>[muhafiz]
+disabled-branches="foo bar"
+</code></pre>
+
+<h2>Contributors</h2>
+
+<p><a href="https://github.com/yuxel">Osman Yüksel</a> <br><a href="https://github.com/volkan">Volkan Altan</a> <br><a href="https://github.com/chesterx">chesterx</a> <br><a href="https://github.com/adililhan">Adil İlhan</a> <br><a href="https://github.com/larukedi">Eser Özvataf</a></p>
+
+<h2>TODO</h2>
 
 <ul>
-<li>add file filter for runners, such as *.php for 'phpcs', *.js for jslint</li>
 <li>verbose options</li>
-<li>add an option to bypass errors and allow commit</li>
 </ul>
       </section>
 
