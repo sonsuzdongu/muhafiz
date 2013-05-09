@@ -46,8 +46,7 @@ class Phpcsfixer extends RunnersAbstract
 
         foreach ($files as $file) {
             $out = Sys::runCommand(
-                $this->_vcs->catCommand($file) .
-                " | php-cs-fixer fix --dry-run --level=${standard}"
+                "php-cs-fixer fix --dry-run --level=${standard} ${file}"
             );
 
             if (count($out['output']) > 0) {
