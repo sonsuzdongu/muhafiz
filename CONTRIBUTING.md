@@ -39,3 +39,5 @@ new feature development occurs -- you'll want to do the same operations for that
 branch; simply substibute "develop" for "master".
 
 
+forking https://github.com/zendframework/zf2/blob/master/CONTRIBUTING.md
+
