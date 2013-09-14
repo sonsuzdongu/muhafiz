@@ -128,6 +128,15 @@ After this, **'all your commits are belongs to us'**. All your commits will be c
 
 * **pyflakes**  the passive checker of Python programs
 
+* **pep8** check your Python code against some of the style conventions in PEP 8.
+    * config parameters :
+        * 'muhafiz.runners.pep8.repeat' : show all occurrences of the same error.
+        * 'muhafiz.runners.pep8.ignore' : skip errors and warnings (e.g. E4,W)
+        * 'muhafiz.runners.pep8.select' : select errors and warnings (e.g. E,W6)
+        * 'muhafiz.runners.pep8.show-source' : show source code for each error
+        * 'muhafiz.runners.pep8.show-pep8' : show text of PEP 8 for each error (implies --first)
+        * 'muhafiz.runners.pep8.show-statistics' : display count of errors and warnings
+
 ## Setting exclude patterns for runners
 Exclude patterns can be set for each runner with setting a RegExp rule in 'muhafiz.runners.RUNNER_NAME.exclude-pattern' like
 
