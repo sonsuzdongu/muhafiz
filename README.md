@@ -117,6 +117,8 @@ After this, **'all your commits are belongs to us'**. All your commits will be c
 * **vardump** Check php/phtml files for var_dump() or print_r() statement
 * **consolefoo** Check js files for console.*() statements
 
+* **pyflakes**  the passive checker of Python programs
+
 ## Setting exclude patterns for runners
 Exclude patterns can be set for each runner with setting a RegExp rule in 'muhafiz.runners.RUNNER_NAME.exclude-pattern' like
 
