@@ -126,6 +126,8 @@ After this, **'all your commits are belongs to us'**. All your commits will be c
         * 'muhafiz.runners.pep8.show-pep8' : show text of PEP 8 for each error (implies --first)
         * 'muhafiz.runners.pep8.show-statistics' : display count of errors and warnings
 
+* **pyflakes**  the passive checker of Python programs
+
 ## Setting exclude patterns for runners
 Exclude patterns can be set for each runner with setting a RegExp rule in 'muhafiz.runners.RUNNER_NAME.exclude-pattern' like
 
