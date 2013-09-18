@@ -28,8 +28,9 @@ class Pyflakes extends RunnersAbstract
     function run(array $files)
     {
         foreach ($files as $file) {
-            $out = Sys::runCommand(sprintf('%s %s',
-                $this->_toolName, $file));
+            $out = Sys::runCommand(
+                sprintf('%s %s', $this->_toolName, $file)
+            );
             if ($out['exitCode'] != 0) {
                 $this->_onRuleFailed($out);
             }
