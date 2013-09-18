@@ -42,7 +42,7 @@ class Pep8 extends RunnersAbstract
      */
     private function _getOptionName($key)
     {
-        if(!isset($this->_options[$key])) {
+        if (!isset($this->_options[$key])) {
             throw new Exception("Unknown configuration key: ${$key}");
         }
         return $this->_options[$key][0];
@@ -54,7 +54,7 @@ class Pep8 extends RunnersAbstract
      */
     private function _getOptionDefault($key)
     {
-        if(!isset($this->_options[$key])) {
+        if (!isset($this->_options[$key])) {
             throw new Exception("Unknown configuration key: ${$key}");
         }
         return $this->_options[$key][1];    
@@ -69,17 +69,18 @@ class Pep8 extends RunnersAbstract
     {
         $keys = array_keys($this->_options);
         $arguments = '';
-        foreach($keys as $key) {
+        foreach ($keys as $key) {
             $default = $this->_getOptionDefault($key);
             $config = $this->_vcs->getConfig($key, $default);
-            if(!filter_var($config, FILTER_VALIDATE_BOOLEAN)) {
+            if (!filter_var($config, FILTER_VALIDATE_BOOLEAN)) {
                 continue;
             }
             $arguments .= sprintf(
                 ' %s %s', 
                 $this->_getOptionName($key), 
-                filter_var($config, FILTER_VALIDATE_BOOLEAN) === true 
-                    ? '' : $config );
+                filter_var($config, FILTER_VALIDATE_BOOLEAN) === true ? 
+                '' : $config 
+            );
         }
         return trim($arguments);
     }
@@ -87,8 +88,11 @@ class Pep8 extends RunnersAbstract
     function run(array $files)
     {
         foreach ($files as $file) {
-            $out = Sys::runCommand(sprintf('%s %s %s', 
-                $this->_toolName, $this->_getArguments(), $file));
+            $out = Sys::runCommand(
+                sprintf(
+                    '%s %s %s', $this->_toolName, $this->_getArguments(), $file
+                )
+            );
             if ($out['exitCode'] != 0) {
                 $this->_onRuleFailed($out);
             }
