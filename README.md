@@ -159,7 +159,7 @@ Subversion:
 [Volkan Altan](https://github.com/volkan) <br />
 [chesterx](https://github.com/chesterx) <br />
 [Adil İlhan](https://github.com/adililhan) <br />
-[Eser Özvataf](https://github.com/larukedi)
+[Eser Özvataf](https://github.com/larukedi) <br/>
 [İbrahim Gündüz](https://github.com/ibrahimgunduz34)
 
 
